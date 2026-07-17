@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helix FinTech — Brand Overview</title>
+    <!-- Google Fonts Embed Link -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <style>
+        /* Base styles matching previous system frameworks */
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 100;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        nav {
+            background-color: #000000;
+            box-shadow: 0 1px 2px rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        /* Center-aligned links wrapper */
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-links li {
+            display: inline-block;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 40px 50px;
+            display: block;
+            transition: color 0.2s ease, background-color 0.2s ease;
+            
+            /* Poppins used for bold/navigation typography */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600; 
+        }
+
+        .nav-links a:hover {
+            color: #616161;
+        }
+
+        /* Editorial Left-Aligned Project Header Section */
+        .project-header-container {
+            max-width: 10000px;
+            margin: 100px auto 60px auto;
+            padding: 0 60px;
+            text-align: left;
+        }
+
+        .back-link {
+            font-family: 'Outfit', sans-serif;
+            color: #727272;
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: inline-block;
+            margin-bottom: 30px;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #ffffff;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 4.3rem;
+            margin: 0 0 40px 0;
+            color: #ffffff;
+        }
+
+        /* Project Metadata Row */
+        .project-meta-row {
+            display: flex;
+            gap: 80px;
+            border-top: 1px solid #1a1a1a;
+            padding-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .meta-item h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #727272;
+            margin: 0 0 12px 0;
+        }
+
+        .meta-item p {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        /* Balanced Grid Layout: Equal-Sized Side-by-Side Image Blocks */
+        .image-container-grid {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin: 40px auto;
+            padding: 0 60px;
+            max-width: 100%;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .image-block-item {
+            flex: 1;
+            max-width: 900px;
+            aspect-ratio: 492 / 328; /* Locked original 3:2 layout size framework shape proportions */
+            background-color: #1a1a1a;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-block-item img {
+            width: 120%;
+            height: 120%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Minimalist Portfolio Footer */
+        footer {
+            background-color: #000000;
+            border-top: 1px solid #1a1a1a;
+            margin-top: 120px;
+            padding: 80px 60px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-left h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 2rem;
+            margin: 0 0 16px 0;
+            color: #ffffff;
+        }
+
+        .footer-left p {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: #727272;
+            margin: 0;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 60px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-column h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #727272;
+            margin: 0 0 8px 0;
+        }
+
+        .footer-column a {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            margin-top: 80px;
+            border-top: 1px solid #1a1a1a;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 1rem;
+            color: #555555;
+            margin: 0;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .image-container-grid {
+                flex-direction: column;
+                align-items: center;
+                padding: 0 32px;
+                gap: 32px;
+                margin: 40px auto;
+            }
+            .image-block-item {
+                width: 100%;
+                height: auto;
+            }
+            .project-header-container {
+                padding: 0 32px;
+                margin-top: 60px;
+            }
+            h1 {
+                font-size: 2.8rem;
+            }
+            .project-meta-row {
+                flex-direction: column;
+                gap: 24px;
+            }
+            footer {
+                padding: 60px 32px;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 48px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Design Work</a></li>
+            <li><a href="casestudies.html">Case Studies</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="motiongraphics.html">Motion Graphics</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Case Study Text Overview Details Section -->
+    <div class="project-header-container">
+        <a href="index.html" class="back-link">← Back to Design Work</a>
+        <h1>Corporate Identity, Corporate Gifts and visual assets for Youth Day Art Festival</h1>
+        
+        <div class="project-meta-row">
+            <div class="meta-item">
+                <h4>Overview</h4>
+                <p>Event Campaign for Youth Day Art Festival</p>
+            </div>
+            <div class="meta-item">
+                <h4>Services</h4>
+                <p>Corporate and visual identity design</p>
+            </div>
+            <div class="meta-item">
+                <h4>Year</h4>
+                <p>2026</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- First Row of Equal Side-by-Side Corporate Visuals -->
+   <div class="image-container-grid">
+        <div class="image-block-item">
+            <img src="artfest/business cards.jpg" alt="Label Typography Detail">
+        </div>
+        <div class="image-container-grid-item image-block-item">
+            <img src="artfest/email footer.jpg" alt="Label Typography Detail">
+        </div>
+    </div>
+
+    <!-- Second Row of Equal Side-by-Side Corporate Visuals -->
+    <div class="image-container-grid">
+        <div class="image-block-item">
+            <img src="artfest/qoutation.jpg" alt="Label Typography Detail">
+        </div>
+        <div class="image-container-grid-item image-block-item">
+            <img src="artfest/tickets.jpg" alt="Label Typography Detail">
+        </div>
+    </div>
+
+    <div class="image-container-grid">
+        <div class="image-block-item">
+            <img src="artfest/wristbands.jpg" alt="Label Typography Detail">
+        </div>
+        <div class="image-container-grid-item image-block-item">
+            <img src="artfest/lanyard.jpg" alt="Label Typography Detail">
+        </div>
+    </div>
+
+    <!-- Second Row of Equal Side-by-Side Corporate Visuals -->
+    <div class="image-container-grid">
+        <div class="image-block-item">
+            <img src="artfest/soda.jpg" alt="Label Typography Detail">
+        </div>
+        <div class="image-container-grid-item image-block-item">
+            <img src="artfest/bucket hat.jpg" alt="Label Typography Detail">
+        </div>
+    </div>
+
+    <div class="image-container-grid">
+        <div class="image-block-item">
+            <img src="artfest/tee2.jpg" alt="Label Typography Detail">
+        </div>
+        <div class="image-container-grid-item image-block-item">
+            <img src="artfest/tee.jpg" alt="Label Typography Detail">
+        </div>
+    </div>
+
+    <!-- Second Row of Equal Side-by-Side Corporate Visuals -->
+    <div class="image-container-grid">
+        <div class="image-block-item">
+            <img src="artfest/car.jpg" alt="Label Typography Detail">
+        </div>
+        <div class="image-container-grid-item image-block-item">
+            <img src="artfest//wristbands.jpg" alt="Label Typography Detail">
+        </div>
+    </div>
+
+    <div class="image-container-grid">
+        <div class="image-block-item">
+            <img src="artfest/stage.jpg" alt="Label Typography Detail">
+        </div>
+        <div class="image-container-grid-item image-block-item">
+            <img src="artfest/stage2.jpg" alt="Label Typography Detail">
+        </div>
+    </div>
+    
+    <footer>
+    <div class="footer-content">
+        <div class="footer-left">
+            <h3>Let's design identities, <br>tell stories and capture meaningful moments.</h3>
+        </div>
+        <div class="footer-right">
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <a href="mailto:gthabanyane@gmail.com">Email</a>
+                <a href="https://linkedin.com" target="https://www.linkedin.com/in/gift-thabanyane-646271250/">LinkedIn</a>
+                <a href="https://instagram.com" target="https://www.instagram.com/immaculategiftthabanyane/">Instagram</a>
+                <a href="https://facebook.com" target="https://www.facebook.com/gift.thabanyane/">Facebook</a>
+                <a href="https://behance.net" target="https://www.behance.net/giftthabanyane/">Behance</a>
+            </div>
+            <div class="footer-column">
+                <h4>Navigation</h4>
+                <a href="index.html">Design Work</a>
+            <a href="casestudies.html">Case Studies</a>
+            <a href="photography.html">Photography</a>
+            <a href="motiongraphics.html">Motion Graphics</a>
+            <a href="contact.html">Contact</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

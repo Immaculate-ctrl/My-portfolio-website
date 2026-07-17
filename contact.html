@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Responsive Portfolio</title>
+    <!-- Google Fonts Embed Link -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <style>
+        /* Base styles matching previous system architecture */
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 100;
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Responsive Navigation Bar Container */
+        nav {
+            background-color: #000000;
+            box-shadow: 0 1px 2px rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        /* Center-aligned links wrapper */
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-links li {
+            display: inline-block;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 40px 80px;
+            display: block;
+            transition: color 0.2s ease, background-color 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600; 
+        }
+
+        .nav-links a:hover, .nav-links .active-nav {
+            color: #616161;
+            background-color: #000000;
+        }
+
+        /* Main Contact Hub Layout Framework */
+        .contact-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 60px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .contact-header {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 4.3rem;
+            line-height: 1.2;
+            color: #727272;
+            margin: 0 0 80px 0;
+            max-width: 900px;
+            transition: color 0.3s ease;
+        }
+
+        .contact-header:hover {
+            color: #ffffff;
+        }
+
+        /* Direct Action Communication Channels Grid */
+        .contact-channels {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            border-top: 1px solid #1a1a1a;
+            padding-top: 60px;
+        }
+
+        .channel-item {
+            display: flex;
+            align-items: baseline;
+            gap: 40px;
+        }
+
+        .channel-label {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #727272;
+            min-width: 160px;
+        }
+
+        /* Interactive Typography Callouts */
+        .channel-link {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 2.5rem;
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .channel-link:hover {
+            color: #616161;
+        }
+
+        /* Minimalist Studio Footer */
+        footer {
+            background-color: #000000;
+            border-top: 1px solid #1a1a1a;
+            padding: 80px 60px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .footer-left h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 2rem;
+            margin: 0 0 16px 0;
+            color: #ffffff;
+        }
+
+        .footer-left p {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: #727272;
+            margin: 0;
+            text-align: left;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 60px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-column h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #727272;
+            margin: 0 0 8px 0;
+        }
+
+        .footer-column a {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            margin-top: 80px;
+            border-top: 1px solid #1a1a1a;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1rem;
+            color: #555555;
+            margin: 0;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .nav-links a {
+                padding: 40px 40px;
+            }
+            .contact-wrapper {
+                padding: 60px 32px;
+            }
+            .contact-header {
+                font-size: 2.8rem;
+                margin-bottom: 48px;
+            }
+            .contact-channels {
+                padding-top: 40px;
+                gap: 32px;
+            }
+            .channel-item {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .channel-link {
+                font-size: 1.8rem;
+            }
+            footer {
+                padding: 60px 32px;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 48px;
+            }
+            .footer-right {
+                width: 100%;
+                justify-content: flex-start;
+                gap: 80px;
+            }
+            .footer-bottom {
+                margin-top: 48px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Design Work</a></li>
+            <li><a href="casestudies.html">Case Studies</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="motiongraphics.html">Motion Graphics</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Clean, direct communication layout without forms -->
+    <div class="contact-wrapper">
+        <h1 class="contact-header"> Let’s connect and bring that vision to life.</h1>
+        
+        <div class="contact-channels">
+            <div class="channel-item">
+                <span class="channel-label">Email</span>
+                <a href="mailto:gthabanyane@gmail.com" class="channel-link">gthabanyane@gmail.com</a>
+            </div>
+            <div class="channel-item">
+                <span class="channel-label">Inquiries</span>
+                <a href="tel:+27110000000" class="channel-link">+27 73 386 1714</a>
+            </div>
+            <div class="channel-item">
+                <span class="channel-label">Social</span>
+                <a href="https://www.instagram.com/immaculategiftthabanyane/" target="_blank" class="channel-link">immaculategiftthabanyane</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+    <div class="footer-content">
+        <div class="footer-left">
+            <h3>Let's design identities, <br>tell stories and capture meaningful moments.</h3>
+        </div>
+        <div class="footer-right">
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <a href="mailto:gthabanyane@gmail.com">Email</a>
+                <a href="https://linkedin.com" target="https://www.linkedin.com/in/gift-thabanyane-646271250/">LinkedIn</a>
+                <a href="https://instagram.com" target="https://www.instagram.com/immaculategiftthabanyane/">Instagram</a>
+                <a href="https://facebook.com" target="https://www.facebook.com/gift.thabanyane/">Facebook</a>
+                <a href="https://behance.net" target="https://www.behance.net/giftthabanyane/">Behance</a>
+            </div>
+            <div class="footer-column">
+                <h4>Navigation</h4>
+                <a href="index.html">Design Work</a>
+            <a href="casestudies.html">Case Studies</a>
+            <a href="photography.html">Photography</a>
+            <a href="motiongraphics.html">Motion Graphics</a>
+            <a href="contact.html">Contact</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026. All rights reserved.</p>
+    </div>
+</footer>
+    
+</body>
+</html>

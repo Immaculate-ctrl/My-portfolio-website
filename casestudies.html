@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Architecture Case Studies</title>
+    <!-- Google Fonts Embed Link -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Outfit:wght@100;300;400&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base styles matching previous system architecture */
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 100;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        /* Responsive Navigation Bar Container */
+        nav {
+            background-color: #000000;
+            box-shadow: 0 1px 2px rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-links li {
+            display: inline-block;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 40px 80px;
+            display: block;
+            transition: color 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600; 
+        }
+
+        .nav-links a:hover {
+            color: #616161;
+        }
+
+        /* Hero Header Section Layout */
+        .case-study-hero {
+            max-width: 10000px;
+            margin: 100px auto 40px auto;
+            padding: 0 60px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 4.3rem;
+            margin: 0 0 50px 0;
+            color: #727272;
+            line-height: 1.1;
+            transition: color 0.3s ease;
+        }
+
+        h1:hover {
+            color: #ffffff;
+        }
+
+        /* Responsive Case Study Tabs Button Group Styling */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 80px;
+            padding: 0 60px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background-color: transparent;
+            border: 1px solid #333333;
+            color: #727272;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 15px 30px;
+            transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tab-button:hover {
+            color: #ffffff;
+            border-color: #616161;
+            background-color: #111111;
+        }
+
+        .tab-button.active-tab {
+            color: #000000;
+            background-color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        /* Global Section Visibility Rules */
+        .brand-section {
+            display: none;
+        }
+
+        .brand-section.active-section {
+            display: block;
+        }
+
+        /* Narrative Column Container Layout (Brand Strategy & DNA) */
+        .narrative-container {
+            max-width: 10000px;
+            padding: 0 60px;
+            margin: 0 auto 100px auto;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .narrative-row {
+            display: flex;
+            gap: 80px;
+            margin-bottom: 60px;
+            align-items: flex-start;
+        }
+
+        .narrative-label {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #727272;
+            min-width: 250px;
+            margin-top: 8px;
+        }
+
+        .narrative-body {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.6rem;
+            line-height: 1.6;
+            color: #ffffff;
+            margin: 0;
+            max-width: 900px;
+            text-align: left;
+        }
+
+        /* Visual Production Component Layout System */
+        .visual-showcase-container {
+            max-width: 10000px;
+            padding: 0 60px;
+            margin: 0 auto 60px auto;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .visual-row {
+            display: flex;
+            gap: 60px;
+            margin-bottom: 80px;
+            align-items: flex-start;
+        }
+
+        /* Visual image display module workspace box container */
+        .media-panel-container {
+            flex: 1;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .media-showcase-block {
+            width: 100%;
+            aspect-ratio: 492 / 328; /* Faithfully preserves your core 3:2 spatial framework geometry */
+            background-color: #1a1a1a;
+            overflow: hidden;
+        }
+
+        .media-showcase-block img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Side text presentation column layout rail */
+        .sidebar-description-rail {
+            width: 380px;
+            min-width: 380px;
+            position: sticky;
+            top: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            border-left: 1px solid #1a1a1a;
+            padding-left: 40px;
+        }
+
+        .sidebar-card h5 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #727272;
+            margin: 0 0 12px 0;
+            text-align: left;
+        }
+
+        .sidebar-card p {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #a0a0a0;
+            margin: 0;
+            text-align: left;
+        }
+
+        /* FULL IDENTITY ROW: Displaying Two Equal Blocks Side-by-Side */
+        .identity-grid-container {
+            max-width: 10000px;
+            padding: 0 60px;
+            margin: 0 auto 40px auto;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .identity-row-split {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .identity-card-wrapper {
+            flex: 1;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Dynamic Title Container Block inside identity description cards */
+        .identity-description-block {
+            border-top: 1px solid #1a1a1a;
+            padding-top: 20px;
+            margin-bottom: 60px;
+        }
+
+        .identity-description-block h5 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #727272;
+            margin: 0 0 12px 0;
+            text-align: left;
+        }
+
+        .identity-description-block p {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #a0a0a0;
+            margin: 0;
+            text-align: left;
+        }
+
+        /* Minimalist Studio Footer */
+        footer {
+            background-color: #000000;
+            border-top: 1px solid #1a1a1a;
+            margin-top: 120px;
+            padding: 80px 60px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-left h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 2rem;
+            margin: 0 0 16px 0;
+            color: #ffffff;
+        }
+
+        .footer-left p {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: #727272;
+            margin: 0;
+            text-align: left;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 60px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-column h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #727272;
+            margin: 0 0 8px 0;
+        }
+
+        .footer-column a {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            margin-top: 80px;
+            border-top: 1px solid #1a1a1a;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1rem;
+            color: #555555;
+            margin: 0;
+        }
+
+        /* Responsive Breakpoint Adaptations */
+        /* Responsive Breakpoint Adaptations */
+        @media screen and (max-width: 1024px) {
+            .case-study-hero, .narrative-container, .visual-showcase-container, .identity-grid-container, footer {
+                padding: 0 32px;
+            }
+            h1 {
+                font-size: 2.8rem;
+            }
+            .tabs-container {
+                gap: 12px;
+                padding: 0 32px;
+                margin-bottom: 40px;
+            }
+            .tab-button {
+                font-size: 0.9rem;
+                padding: 12px 24px;
+                width: 100%;
+                text-align: center;
+            }
+            .narrative-row {
+                flex-direction: column;
+                gap: 12px;
+                margin-bottom: 40px;
+            }
+            .narrative-label {
+                min-width: 100%;
+            }
+            .narrative-body {
+                font-size: 1.3rem;
+            }
+            .visual-row, .identity-row-split {
+                flex-direction: column;
+                gap: 40px;
+                margin-bottom: 60px;
+            }
+            .sidebar-description-rail {
+                width: 100%;
+                min-width: 100%;
+                position: relative;
+                top: 0;
+                border-left: none;
+                border-top: 1px solid #1a1a1a;
+                padding-left: 0;
+                padding-top: 40px;
+                gap: 32px;
+            }
+            .identity-card-wrapper {
+                width: 100%;
+            }
+            .identity-description-block {
+                margin-bottom: 0;
+            }
+            footer {
+                padding: 60px 32px;
+                margin-top: 80px;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 48px;
+            }
+            .footer-right {
+                width: 100%;
+                justify-content: flex-start;
+                gap: 80px;
+            }
+            .footer-bottom {
+                margin-top: 48px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Design Work</a></li>
+            <li><a href="casestudies.html">Case Studies</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="motiongraphics.html">Motion Graphics</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="case-study-hero">
+        <h1>Case Studies</h1>
+    </header>
+
+    <div class="tabs-container">
+        <button class="tab-button" onclick="filterBrand('asante')">Asante Maison</button>
+        <button class="tab-button active-tab" onclick="filterBrand('aquaelite')">AquaElite</button>
+        <button class="tab-button" onclick="filterBrand('aruna')">Aruna</button>
+        <button class="tab-button" onclick="filterBrand('soweto')">Soweto Jazz Festival</button>
+        <button class="tab-button" onclick="filterBrand('lifeskills')">Lifeskills Hub</button>
+        <button class="tab-button" onclick="filterBrand('talent')">Young Talent Showcase</button>
+        <!-- <button class="tab-button" onclick="filterBrand('asante')">Asante Maison</button> -->
+        <button class="tab-button" onclick="filterBrand('youthday')">Youth Day Art Festival</button>
+    </div>
+
+    <div id="asante" class="brand-section">
+        <div class="narrative-container">
+            <div class="narrative-row"><h2 class="narrative-label">Project Description</h2><p class="narrative-body">Designing a restaurant brand identity inspired by either the African, Oceania or Americana cultures.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Name Explanation</h2><p class="narrative-body">Asanti: A name that means because of war
+in Twi but I actually used the meaning
+from the Kiswahili language which
+means "Thank you" or "gratitude." Maison: French for:
+"House" or "home."<br><br>Asante Maison is a royal house of Ghanaian heritage where people gather 
+to experience the culture, cuisine, and traditions of the Asante people through fine dining.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Who We Are</h2><p class="narrative-body">Asante Maison exists to preserve, 
+celebrate, and share the spirit of 
+Ghana through unforgettable 
+dining experiences.
+
+Our values include heritage, 
+gathering, community, celebration 
+and royalty. We want every 
+customer to feel like they are a part 
+of us, to be treated like royalty and 
+to enjoy an amazing company around 
+the restaurant. <br><br>
+We have decided to tell stories even through every dish.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Our Story</h2><p class="narrative-body">Asante Maison is a royal house of Ghanaian heritage that is inspired by the culture and heritage of the Asante people. 
+We offer more than a meal, we offer storytelling through our menus/cuisines, good hospitality and a treatment fit for royalty. 
+We want people to feel at home and learn about the roots of the Asante people through our visuals, staff, music, and cuisine.   </p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Purpose</h2><p class="narrative-body">To celebrate, and share the heritage, cuisine, 
+and hospitality of the Asante people through fine
+dining experiences.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Mission</h2><p class="narrative-body">To give our guests traditional flavours and excite
+them with the Asante stories while giving them
+an exceptional fine dining experience with
+excellence and cultural pride.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Vision</h2><p class="narrative-body">To become the leading destination for authentic 
+Ghanaian fine dining.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Values</h2><p class="narrative-body">Uncompromised material honesty, architectural geometric precision, and timeless spatial endurance variables.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Personality</h2><p class="narrative-body">Brand Archetype: The Ruler + Care Giver - we give you a royal treatment, fine dining,
+and treat you with dignity. We welcome you warmly, offer good service, and a sense 
+of community. 
+
+Asante Maison welcomes you with warmth, treats you like royalty, and shares the 
+amazing heritage of Asante people through fine dining experience.  <br><br>
+Brand Personality: 
+Sophisticated
+Cultured
+Hospitable
+Proud
+Refined</p></div>
+        </div>
+
+        <div class="visual-showcase-container">
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/colours.jpg" alt="Asante Maison Moodboard"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo Concepts</h5><p>The first concept was developed from the soul washer (one of the gold pieces of the Asante culture). The soul washers are only worn by priests or officials that are around the 
+King who perform purification rituals for the King. They symbolize purity and magical protection. <BR><BR> The second concept is inspired ny their golden stool. The golden stool known as Sika Dwa Kofi is said to have 
+descended in a white cloud dust from the heaven and fell 
+on the lap of Osei Tutu the first and housed the soul of the 
+nation. No one sits or touches the stool, it is even given its 
+own chair to sit on in ceremonies. When Kings are crowned, 
+they are lifted over and lowered on the other side of the 
+stool without touching it. It represents the soul of the nation</p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/concept2.jpg" alt="Asante Maison Logo Concepts"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo Concepts</h5><p>The icon is inspired by the Golden Stool. Representing the Asante people. The symbol is flat to give it a modern 
+look. The edges give it that “Ruler” personality behind it. We made sure that it is not too sharp to scare people away. </p></div>
+                     </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/wordmark.jpg" alt="Asante Maison Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Wormark</h5><p>The font choice is Proxima Nova Alt condensed. The font is tall and evenly spaced - giving the 
+brand a luxurious look and feel. I have then rounded the corners a bit to add a soft friendly feel to it.</p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/logo.jpg" alt="Asante Maison Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo in black and white</h5><p></aside>
+            </div>
+
+             <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/symbols.jpg" alt="Asante Maison Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Other symbols used</h5><p>The symbol originates from the leaf like elements in the Akrafokonmu symbol. 
+The Akrafokonmu symbol is the known as the soul washer - it was worn by 
+people who were high in rank and were around the King. 
+
+They would serve the King and purify and replenish his vital powers. The 
+leaf like elements are linked directly to the Adinkra symbol Aya which 
+endurance, resourcefulness, independence, and defiance against adversity 
+and it serves as a visual reminder to adapt, flourish and remain strong through
+life’s hardship.</p></aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/symbols expl.jpg" alt="Asante Maison Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Other symbols used</h5><p>I then chose to make these symbols represent different
+                        departments in the restaurant. We have a menu symbol, waiter symbol, chef symbol, food symbol and since our name
+                        includes a French word, I also have added French cuisines on the menu. </p></aside>
+            </div>
+
+             <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/pattern.jpg" alt="Asante Maison Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Our pattern</h5><p></aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/colours.jpg" alt="Asante Maison Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Colours</h5><p>The colours used are directly form the Kente cloth. 
+They are muted to make them feel premium 
+and sophisticated. </p></aside>
+            </div>
+            <h2>RESTAURANT IDENTITY</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m1.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m2.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/3.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m4.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m5.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m6.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m7.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m8.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m9.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m10.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m11.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m12.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m13.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m14.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m15.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m16.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m17.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m18.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m20.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m21.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m22.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m23.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m24.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m25.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m26.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m28.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m29.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m30.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m31.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/restaurant/m32.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+        </div></div>
+            </div>
+            
+            
+     <!-- AQUAELITE SECTION  -->
+    <div id="aquaelite" class="brand-section active-section">
+        <div class="narrative-container">
+            <div class="narrative-row"><h2 class="narrative-label">Project Description</h2><p class="narrative-body">Label and bottle design for a premium sparkling water brand. Later in the stage it was decided to add Vodka and Gin Bottle designs.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Who We Are</h2><p class="narrative-body">AquaElite in its naming is self-explanatory.
+
+This is water curated for the Elite ("a choice or select body, the best part,"1823, from French élite). So, this water brand is for the rich and wealthy - the selected few that are considered the best.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Our Story</h2><p class="narrative-body">The company was started by myself (Gift Thabanyane) and four
+gentlemen. We are a group and call ourselves The Immacculates. I decided to start this after I read and discovered that water from the tap had contaminants. They then started the research as to where we could find fresh, clean, drinking water and we discovered the Alliston aquifer. Alliston aquifer is the ancient underground reservoir located under the Simcoe Uplands in Tiny, Springwater, Oro-Medonte and Tay Townships (Canada). Top Scientists have referred to the water in Alliston aquifer as the purest wateron the planet. It has become the benchmark for water purity around the world. This is where the journey started..</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Vision</h2><p class="narrative-body">Be the standard of the purest water on the planet.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Values</h2><p class="narrative-body">
+                EXCLUSIVITY - men that are of LSM 7+.<br>
+                LUXURY - a luxurious looking packaging.<br>
+                PURITY - from the Alliston aquifer.<br>
+                HEALTH - our concern is the health of our customers. Improving the
+                quality of their health through our water is our #1 priority.<br>
+                STRENGTH - our water bottle design sourced inspiration from building
+                to showcase strength.</p></div>
+            </div>
+
+        <div class="visual-showcase-container">
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/AquaElite/mood.jpg" alt="AquaElite Moodboard"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Moodboard</h5><p>This board serves as a directional approach that I wanted to take in designing the logo for AquaElite. The font had to be bold; with inspiration taken from the Voss typography. I wanted to use the water molecular substances and other molecular substances found in sparkling water. This approach did not work well conceptually but we will discuss this in the logo conception stage.</p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/AquaElite/concepts.jpg" alt="AquaElite Logo Concepts"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo Concepts</h5><p>Here I have explored a range of things; from water droplets, letter pairing, and using purely typography of which did not work. I think my mind was not fixed on an idea and I was just wondering all around the place and hence nothing seemed to be working. </p></div>
+                    <div class="sidebar-card"><h5>Selected concept</h5><p>The icon I decided to go with was actually what we call a “happy mistake”. This is on the bottom left. I actually meant to make an A and from that A make a flow of water as if water is flowing from the centre of an A. I looked at it after sketching it and saw AE and immediately I said “that’s it”. It is a unique letter combination that gives someone a smile in the mind when they recognize it. It is less complex and stands out from the rest of the concepts.</p></div>
+                </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/AquaElite/wordmark.jpg" alt="AquaElite Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Word mark choice</h5><p>The font used for the word mark is called Montrelo. Montrelo looks modern, it is a sans serif font with rounded edges. Complimented the icon very well. It is bold and aligned with our brands values.
+                        The font is paired with poppins; tracked for spacing in between.</p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/AquaElite/logo.jpg" alt="AquaElite Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo in black and white</h5><p>These are the final logo designs in black and white.</p></div>
+                    </aside>
+            </div>
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/AquaElite/bottle concepts.jpg" alt="AquaElite Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>The bottle design Conceptualization</h5><p>The bottle took inspiration from the Leonardo hotel in Sandton. The reason was to create a strong glass bottle that people will be able to reuse after drinking the water and made to be easy to carry around. Taking the building design made sense for this aspect. Also, this is a five-star hotel where I would imagine out target market would stay in and the water could even be sold in such a place.</p></div>
+                    </aside>
+            </div>
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/aquaelite/label.jpg" alt="AquaElite Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>The bottle label design Conceptualization</h5><p>These are the back and front of the water bottle labels. Since the bottle is glass, I wanted nothing to interfere with seeing the water inside, so the logo will be embossed on the bottle and the label at the back will be a transparent sticky plastic with writing on it.</p></div>
+                    </aside>
+            </div>
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/aquaelite/flavor label.jpg" alt="AquaElite Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Flavours label design Conceptualization</h5><p>Introducing the labels was quite a challenge. So, I decided to have a small rubber band type of a description that will be simple, clean and not interfere with a lot. The one I decided to go with is on the far right.</p></div>
+                    </aside>
+            </div>
+            <h2>3D RENDERS OF THE BOTTLES</h2>
+             <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="aquaelite/2 bottles1.png" alt="AquaElite Final Logo Display"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="aquaelite/WATER INSIDE11.png" alt="AquaElite Final Logo Display"></div></div>
+                
+            </div>
+            <h2>VODKA AND GIN BOTTLE DESIGN WERE INTRODUCED</h2>
+             <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="aquaelite/vodka bottle.jpg" alt="AquaElite Final Logo Display"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="aquaelite/gin bottle.jpg" alt="AquaElite Final Logo Display"></div></div>
+                
+            </div>
+
+           
+            <h2>ADS FOR THE BOTTLES</h2>
+             <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/AquaElite/aqua.jpg" alt="AquaElite Final Logo Display"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/AquaElite/vodka.jpg" alt="AquaElite Final Logo Display"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/AquaElite/gin.jpg" alt="AquaElite Final Logo Display"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/AquaElite/socials aqua.jpg" alt="AquaElite Final Logo Display"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/AquaElite/magazine.jpg" alt="AquaElite Final Logo Display"></div></div>
+                 <div class="visual-row"></div>
+            </div>
+        </div>
+    </div>
+       
+        
+    <!-- ARUNA SECTION -->
+    <div id="aruna" class="brand-section">
+        <div class="narrative-container">
+            <div class="narrative-row"><h2 class="narrative-label">Project Description</h2><p class="narrative-body">Logo design, perfume bottle design and packaging design for an Asian inspired brand.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Who We Are</h2><p class="narrative-body">The temple Wat Arun (in Thailand; Bangkok) is name after Aruna who is the god 
+of the sun in Hindu cosmology. The temple is a tourist attraction; it is a spiritual 
+place and therefore it is respected. People dress well when going there. It is also 
+adored for it's iridescence at dawn or sunset when the sun is heating upon it 
+because it is made of ceramics and sea shells mosaics. Aruna was the one who 
+protected the earth from the sun's harmful rays and only allowed essential light 
+for survival to pass through.</p></div>
+           <div class="narrative-row"><h2 class="narrative-label">Purpose</h2><p class="narrative-body">What we aim to do at Aruna is to produce scents with purpose. What we mean 
+is that just as Aruna had a purpose to protect, we also have designed a scent(s)
+for those that are purpose driven. Dawn has a spiritual significance and that is
+the notion of illumination and hope, the beginning of a new day and thus a chance
+for improvement and impact. Sunrise is symbolic for birth, rebirth or awakening. 
+So, Aruna is designed for individuals that are change agents, when they appear 
+on the scene people have hope - they are like a light in the darkness, they always 
+seek to conquer themselves or surpass the achievements of yesterday and they 
+always want to impact other people positively.
+
+Dawn’s impact on individuals brings mindful awareness and activates a portal of
+divine wisdom. So, these are people who always seek wisdom - these are creators. </p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Mission</h2><p class="narrative-body">We aim to offer perfumes that do not harm the skin, that demand attention. Our stories 
+and messaging are constructed to capture the right people to buy our perfumes. We ignite
+focus and confidence with our stories and messaging.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Vision</h2><p class="narrative-body">We want to create a loyal community of individuals that carry these traits and 
+characteristics. We want Aruna to be known as a brand that is worn by such 
+people and we want such people to connect to the brand. Individuals that are 
+full of light, positive mindset and wisdom. Just as Aruna would protect the earth 
+and only allow the essential light to pass, these are individuals that filter the 
+unnecessary noise that is in the world and only let the positive, uplifting and 
+inspiring voices to be heard in their lives and upon those whom they are raising. </p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Values</h2><p class="narrative-body">Exclusivity | Elegance
+Purpose | Minimalism |  Integrity.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Personality</h2><p class="narrative-body">Sophisticated | Spiritual 
+Inspiring | Mysterious | Refined.</p></div>
+        </div>
+
+        <div class="visual-showcase-container">
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/ARUNA CONCEPTS.jpg" alt="Aruna Moodboard"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo concepts</h5><p>The logo concepts revolve around the horses, the mosaic, the sun, and the temple of dawn. This is because the focus of the research was on the culture found in Bangkok (Thailand). I was looking at the temple of Dawn as an iconic and most visited or famous spiritual place in Bangkok. Wat Aruna (which is the temple of Dawn) gets its name from Aruna who was the charioteers in Hindu cosmology. Aruna was riding 7 horses and was considered god of the sun. The temple itself is made of a mosaic of sea shells which gives it an amazing iridescence when the sun hits on it. Hence the concepts revolve around that. </p></div>
+                    <div class="sidebar-card"><h5>Chosen concept</h5><p>The icon chosen is the one with the building negative space in the middle of a circular shape and mosaic inside the circle and the sun rays. Top right</p></div>
+                </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/wordmark.jpg" alt="Aruna Logo Concepts"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo wordmark</h5><p>The Aruna wordmark is a key element to the 
+brand’s visual identity. Designed to be clean, 
+modern, luxurious and reflects the brands 
+core values of exclusivity, quality, excellence, 
+elegance and care. 
+
+The typography has been carefully selected to 
+convey elegance, modernity, and luxury. 
+Bringing heritage into our modern world. </p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/iconmakeup.jpg" alt="Aruna Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Icon Makeup</h5><p>The icon is made of a combination of a mosaic (representing the temple’s decorations), the mosaic is in a circular form (representing the sun), the building of the temple in a negative space inside the circle, and the 7 sun rays representing the seven horses that Aruna used to ride.</p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/coloursAr.jpg" alt="Aruna Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Colours</h5><p>Colours come from the scent types we have.<br> 
+First one being an aquatic scent: op notes: <br>
+Musk, ozonic notes, sea algae – fresh marine note with soft woody and vanilla scent.
+Middle notes: Lily, Amber – mixture of fresh green floral scent. 
+Base notes: Marine, dutura – fresh, aquatic, cold, salty, and earthy scent.<br><br>
+And the sweet woody scent:<br>
+Top notes: Pear, ginger, lavender, ylang-ylang – Delightful fruity scent of sweetness. 
+Middle notes: Pink pepper, cinnamon, amber, ciste labdanum – sweet and spicy scent. 
+Bottom notes: vanilla, tonka bean, agarwood, patchouli, cypriol – sweet smell with a strong woody spicy scent.
+</p></div>
+                    </aside>
+            </div>
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/bottle concepts.jpg" alt="Aruna Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo in Black and White</h5><p>The concepts I have revolved around the horses, mosaic, the temple, the logo icon, and iridescence. For the first one in the 
+blue box, I was doing the design for the aquatic scent. I used the logo icon as the structure for the bottle. The front structure
+would look like that one that is in blues and black. Other structures around it are how it will look on the sides. The issue with this 
+one was the way the word mark was sitting at the centre, that a person reading had to turn their heard to read it. <br><br>
+
+The one in the orange box was for the sweet scented perfume. Here I went for the use of the face of horses and the 
+iridescence on the sides of it. The cap of it was also going to be the head of the horse. It was not the best, the structure of it
+was too basic. <br><br>
+
+The third one in the green box I wanted it to be a double scented with detachable glasses that contain the perfume. The 
+word mark was showing very well there at the bottom, but what was not showing was the temple in the middle. I did not 
+want it to show personalty because I wanted the structure to look more stable to the eye and I was also thinking of when one
+is detached, the other one will not fall off, the entire structure will remain stable. I had to change it and make the temple show
+and also make the bottles not to be detachable as well. Which lead to the designs on the next page. </p></div></aside>
+            </div>
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/illustratordesigns.jpg" alt="Aruna Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Illustrator Designs</h5><p>Started to do illustrator designs for the perfume bottles before going to the 3D modeling phase.</p></div>
+                    </aside>
+            </div>
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/buildingmaterial.jpg" alt="Aruna Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>This is the middle part of the perfume (Wat Aruna).</h5><p>This is made of stainless steel material that has some
+texture to it. 
+The stainless steel is chosen because it makes the bottle
+look more luxurious. It is more durable and stable. So it 
+will provide that sense of stability for the middle structure
+and will be able to hold the perfume bottle in place in case
+the other half of the bottle finishes first. It lasts even longer
+and does not degrade over time. </p></div>
+                    </aside>
+            </div>
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/botllematerial.jpg" alt="Aruna Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Circular structure</h5><p>This is where the perfume is contained.
+There is a separation in the middle to 
+separate the two scents from mixing. 
+This container is made out of a thick
+glass. One is able to see the inside but 
+it is not really clear.<br><br>
+
+The “mosaic” are windows on the glass
+where you are able to see the perfume 
+clearly. These are not coloured, they show
+the perfume inside, which is the one that is
+coloured.<br><br>
+
+Glass is good for preventing the perfume
+from evaporating and also prevents it
+from being contaminated. It provides a
+perfect seal that lasts over time. 
+Also it has a luxurious look and feel.   </p></div>
+                    </aside>
+        </div>
+ <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/actator and nozzel.jpg" alt="Aruna Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>The Actuator & nozzle</h5><p>The actuator (bottom) is the button you press
+to release the perfume. The nozzle (top)
+is what dispenses the perfume. 
+Both are made of glass metal. 
+The nozzle for the oil one is a bit 
+wider to avoid the oil from clogging.</p></div>
+                    </aside>
+            </div>
+            <h2>3D RENDERS OF THE BOTTLES</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/bottle1.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/bottle2.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/packconcepts.jpg" alt="Aruna Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Packaging Concepts</h5><p>What I wanted to do with the concepts I did was to first of all maintain the mosaic effect I have on the bottle. Secondly, I
+wanted to have something small, cute and portable. I was thinking of it being round but that changed along the way. Some
+concepts I did like the first on the left I disregarded, it just didn’t seem like it would work for me. The second one is
+rounded and took the shape of the perfume bottle. The one below it had a building on it like the bottle but then I thought
+I could have the bottle being shown inside instead of making it on the packaging. So I went with the bottom left one.
+Initially it had to have lights at the top that switch on and off as you close and open the box.</p></div>
+                    </aside>
+            </div>
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/dicut.jpg" alt="Aruna Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Packaging Dicut</h5></div>
+                    </aside>
+            </div>
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/material.jpg" alt="Aruna Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Packaging Material type</h5><p>The perfume box will be made of a hard thick box, the mosaic is also part of the box and it is slightly 
+extruded so that one can touch and feel it when holding the box. The box is matte (it does not shine) 
+and the mosaic has a glossy texture to it (it shines when exposed to light). The opening in the middle 
+will be made of a Clear PVC/PET Plastic Sheets. The plastic is more transparent, thick and weighs 
+less and has moisture barrier.  </p></div>
+                    </aside>
+            </div>
+            <h2>3D RENDERS OF THE PACKAGING</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/package1.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/PACKAGE2.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/PACKAGE3.jpg" alt="Aruna Bottle Design"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/Aruna/PACKAGE4.jpg" alt="Aruna Bottle Design"></div></div>
+                
+            </div>
+       
+        </div>
+    </div>
+
+      
+
+    <!-- SOWETO JAZZ FESTIVAL SECTION -->
+    <div id="soweto" class="brand-section">
+        <div class="narrative-container">
+            <div class="narrative-row"><h2 class="narrative-label">Project Description</h2><p class="narrative-body">Design a logo, corporate identity, promotional campaign and 
+branding for a 3-Day Jazz event: Soweto Jazz Festival/Sophia-town 
+Jazz Festival. The logo has to reflect ideas of jazz music, and a 
+festive feeling.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">What Is Jazz?</h2><p class="narrative-body">Jazz cannot be defined because it is always 
+evolving. This music was started by African 
+Americans. It has an element of improvisation - 
+doing something that was not initially intended, 
+planned or practiced. So Jazz is spontaneous.<br><br>
+ 
+Jazz is enjoyed by creative people, intellectuals 
+and introspective people. These people enjoy 
+abstract thinking - that is thinking and 
+understanding things that are not tangible like 
+freedom, justice, love, etc., and always want 
+to experience new things. They are emotional 
+beings and are good problem solvers. </p></div>
+            </div>
+
+        <div class="visual-showcase-container">
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/concepts.jpg" alt="Soweto Jazz Festival Moodboard"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo Concepts</h5><p>These were the initial concept conceived but they were not the best. They did resemble some of the logos that are already there and felt old some of them and something that feels young and festive was needed.</p></div>
+                     </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/bw logo.jpg" alt="Soweto Jazz Festival Logo Concepts"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo design</h5><p>This is where I ended at and pay attention to how we got here.<br>
+First a font called Bebas Neue Regular was chosen from many others. <br>And then a placement of words was chosen and that’s where I had an issue that needed fixing…
+</p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/process1.jpg" alt="Soweto Jazz Festival Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo development process</h5><p>There was a weird space that made the upper words (JAZZ) seem
+to be not balancing and somehow almost falling.</p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/process2.jpg" alt="Soweto Jazz Festival Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo development process</h5><p>Putting this block seemed to be working but 
+I needed a reason for putting the block there. Obviously the reason is clear that it provides a visual anchor and maintains balance within the overall composition.</p></div>
+                   </aside>
+            </div>
+
+             <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/bw logo.jpg" alt="Soweto Jazz Festival Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo development process</h5><p>So, I thought of the jazz music being more
+of a music of melodies, some high and some
+low. Jazz is spontaneous. Also music or sound is represented with such blocks moving up and down. I also thought of this instrument (trumpet)
+how it is being played (the pressing of the 
+valves) resonates with the up and down 
+move portrayed in the logo. </p></div>
+                   </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/full color logo.jpg" alt="Soweto Jazz Festival Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo in full color</h5><p>Knowing Jazz to be spontaneous, I believe it’s 
+music that is multicoloured. Not only because
+it is spontaneous but it is also enjoyed by different
+races and it kept evolving since it started to suit the
+generation it is in. Above all, the colours are bright and represents the youth and energy of the music. </p></div>
+                   </aside>
+            </div>
+
+             <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/graphics.jpg" alt="Soweto Jazz Festival Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Visual Graphics</h5><p>I didn’t want to move away from the logo’s blockie look,
+so I decided to use geometric shapes in the branding 
+of the entire Festival. I broke some letters into pieces
+and used those blocks to do something interesting,
+young and vibe. </p></div>
+                   </aside>
+            </div>
+
+            <h2>CORPORATE IDENTITY</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/business cards.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/letterheads.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/socials.jpg" alt="Soweto Jazz Festival Poster"></div></div>
+                
+            </div>
+
+            <h2>Promotional Materials</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/promo car.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/poster.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/water bottle.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/lanyards.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/wrist tags.jpg" alt="Soweto Jazz Festival Poster"></div></div>
+                
+            </div>
+
+            <h2>Corporate Gifts</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/headphones.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/books.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+            <h2>Event Promotions</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/banners.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/magaine.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/poster1.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/sjfest/poster2.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- LIFESKILLS HUB SECTION -->
+    <div id="lifeskills" class="brand-section">
+        <div class="narrative-container">
+            <div class="narrative-row"><h2 class="narrative-label">Project Description</h2><p class="narrative-body">Find a local business that does not have design work or a strong visual identity and help them develop a cohesive brand presence.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Problem Statement</h2><p class="narrative-body">Lifeskills Hub does not have design work. The only thing that they have is a logo that they use 
+on their mechanize. The logo itself is not so great, has lot of inconsistency and does not 
+represent Lifeskills Hub in the best way. Touchpoints are not so many, no functional 
+website or socials. </p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Deliverables</h2><p class="narrative-body">1. Logo - designing a logo that looks young, fresh and professional to fit their target audience.<br>
+2. Identity systems - these are basic graphics, images, colours, and typography that people will 
+use to easily and instantly identify them with. <br>
+3. Marketing and promotional asserts - these include posters, flyers, banners and a website. 
+I want them to be consitent all across in terms of the herarchy of information, colours used,
+graphic treatment and the pictures they use as well as the tone and voice used. These will
+outline what LifeSkills Hub is about, bringing awareness to people and helping them see how
+they can benefit from it. <br>
+4. Website - this replaces the system they have of having to text the CEO when you have to 
+apply or if you need their services. It will provide you with information and then take you through
+the application process. <br>
+5. Motion graphics - they say the most successful brands are not static but fluid. </p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Who We Are</h2><p class="narrative-body">LifeSkills Hub operates as a bridge between unemployment and employment, delivering 
+accredited and non-accredited training programmes, work readiness initiatives, learnership 
+placements, internships, recruitment services, and business compliance support.</p></div>
+           </div>
+
+        <div class="visual-showcase-container">
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/moodboards.jpg" alt="Lifeskills Hub Moodboard"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Moodboard</h5><p>Geared towards youthfulness, fun and modernity. Has a touch of handwritten scripts
+to add that “human” touch. Also an inclusion of features of hand circled words or 
+hand drawn direction pointers to give it that engaging playfulness and fun feel. 
+Chose these colours because they are youthful and not too serious, they have 
+a vibe fun feeling as well. </p></div>
+                   </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/concepts.jpg" alt="Lifeskills Hub Logo Concepts"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo Concepts</h5><p>All the ideas I had concerning the logo design had to do with concepts of
+growth, direction, central area of activity, and connection. These originated
+from the meannig of HUB and what LifeSkills Hub is all about. I mapped 
+out all the words and started thinking of how to visualize them. </p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/logo.jpg" alt="Lifeskills Hub Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Chosen logo</h5><p>This was the chosen concept. It is made from the letters LSH (LifeSkills Hub). You can say
+well, I don’t see how it communicate the ideas spoken of. A hub is a central area of activity
+or a central device that connects multiple devices. To convey connection - I made use of 
+the letters and combined all of them to become one. These then were converted into 
+a more abstract shape where the letters were made to be negative spaces in between the 
+blocks. The negative space feel like a way that controls the eys how to move which then 
+directs the eye to the name. These communicate connection and direction. Enhousing
+some of the LifeSkills Hub purposes which is to give people skills that will allow them 
+to be equipped for their intended course of work and also get them work ready - setting
+them on the right path.</p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/logocolour.jpg" alt="Lifeskills Hub Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo in full colour</h5><p>Went for more vibrant and lively colours. 
+The colours bring excitement, catches attention
+and sparks awareness. Balanced with a dark blue 
+to bring in that feel of safety and professionalism.</p></div>
+                     </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/business card.jpg" alt="Lifeskills Hub Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Visual Design</h5><p>The same visuals in the logo were then used for the business card design and other visual materials for the Lifeskills Hub.</p></div>
+                     </aside>
+            </div>
+
+            <h2>Mini brand guidelines</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/Mini brand guideline-01.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/Mini brand guideline-02.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/Mini brand guideline-03.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/Mini brand guideline-04.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+             <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/Mini brand guideline-05.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/Mini brand guideline-06.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/Mini brand guideline-07.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/Mini brand guideline-08.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/Mini brand guideline-09.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/Mini brand guideline-10.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/Mini brand guideline-11.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+            <h2>Corporate Stationery</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/letterhead.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/quotation.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/folder.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/company profile.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+             <h2>Corporate Gifts</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/hoddie.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/pen.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+             <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/staff tee.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/tee.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/tote bag.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/usb.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                 <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/water bottle.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+ <h2>Promotional Items</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/flyers.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/poster.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                 <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/banner.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+             <h2>Website Design</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/landing.png" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/ABOUT US1.png" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/ABOUT US2.png" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/ABOUT US3.png" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/COURSES.png" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/COURSES1.png" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/COURSES2.png" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/lifeskills/COURSES3.png" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+        </div>
+
+    </div>
+
+    <!-- YOUNG TALENT SHOWCASE SECTION -->
+    <div id="talent" class="brand-section">
+        <div class="narrative-container">
+            <div class="narrative-row"><h2 class="narrative-label">Project Description</h2><p class="narrative-body">I have realized there is a lot of talent ekasi, people
+are pushing brands, and have various amazing skills
+and talents that are never recognized. So, instead of 
+making an event like groove which will always be there,
+I decided to do something meaningful - a talent show 
+and Market place. So, here creatives of any kind; graphic
+designer, fashion designer, visual artists, music performers,
+dance crews, photographers, and brand owners will be
+able to show their skills and work. Collaborate, be 
+recognized, expand their horizon and get a chance to be
+sponsored or mentored and even get a job. </p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Who Is the Event For?</h2><p class="narrative-body">Sebokeng & All Vaal kasi young talented 
+creatives, performers and entrepreneurs
+aged 15 - 35</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Why talent showcase?</h2><p class="narrative-body">It exists to showcase the richness of kasi
+talent, and seeks to ensure that they get
+the recognition they require.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Who can attend?</h2><p class="narrative-body">Families, friends, businesses, Sponsors,
+talent scouts, and community leaders.</p></div>
+            <div class="narrative-row"><h2 class="narrative-label">Who Will Participate?</h2><p class="narrative-body">Brand recognition, awards, certificate of 
+participation, collaboration, opportunity
+to be sponsored/hired/mentored</p></div>
+            </div>
+
+        <div class="visual-showcase-container">
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/concepts.jpg" alt="Young Talent Showcase Moodboard"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo Concepts</h5><p>Logo design concepts were purely typographic 
+with some having icons. The icons I included are 
+from or inspired by the zodiac signs. I wanted
+to use such a concept in the branding of the 
+entire campaign. But itdidn’t work because it 
+was not aligning with what the project is all
+about. 
+<br><br>
+The Symbols included were fish (which is 
+considered to be visionary, artistry and 
+imaginative) and the rabbit in the form of bunny 
+ears (represents beingtalented, creative, artistry 
+and imaginative in Chinese astrology). So, the 
+reason I wanted to include them was the meaning 
+behind each of them which aligned with the 
+campaign’s mission. If only the people I was 
+reaching out to were nerds in astrology and 
+zodiac signs, I think it would have worked 
+well as an icon for the logo. 
+
+
+But then I decided to go with the typography instead. </p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/logo in black and white.jpg" alt="Young Talent Showcase Logo Concepts"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo Design</h5><p>The logo is designged from blocks. The blocks 
+were developed into letters in a way that made 
+the entire feel of the design be young and bold.
+
+The first thing even before creating the blocks was 
+to figure out the placement of the blocks eg. here I 
+played on perspective - which draws the eyes of the
+viewer as it moves from being small to big and from
+big to small.  </p></div>
+                   </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/logo in full colour.jpg" alt="Young Talent Showcase Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Colour Palette Choices</h5><p>Yellow is for energy, intellect and 
+happiness. These young people
+are full of energy and are creative and
+artistic. Blue represents calmness and focus. 
+White for clarity and calmness, peace
+and perfection. <br><br>Together they not only look beautiful, but also 
+vibrant, warm and inviting. The blue 
+compliments the yellow and white very well 
+providing enough contrast and zero 
+readability issues. </p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/motion concepts.jpg" alt="Young Talent Showcase Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Graphics</h5><p>These graphics were developed because of the motion graphics.
+Since the logo is developed from blocks, I used the same block to 
+house the negative space of certain characters and movements or 
+poses. The stars, lines and circles were added to add that sense 
+of movement in the motion graphics. </p></div>
+                     </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/graphics2.jpg" alt="Young Talent Showcase Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Graphics</h5><p>These were developed from the bottom or top
+of the logo. These are used in various branding
+in the campaign assets.</p></div>
+                     </aside>
+            </div>
+
+             <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/graphics3.jpg" alt="Young Talent Showcase Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Graphics</h5><p>These are developed from the logo. So the logo was turned about
+45 degrees and clip masked by the corner of the page as part of 
+the presentation slides graphics. I then took those and rearanged
+them in an unorderly way to come with these graphics to use in 
+the branding. <br><br> These graphics were applied to the entire branding of the campaign
+making it feel young, bold,  inviting and energetic. The branding feels
+well put together, very cohesive </p></div>
+                     </aside>
+            </div>
+
+            <h2>Website Design</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/business cards.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/letterheads.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/emailfooter.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/powerpoint.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/social profile.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/landing page.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+             <h2>Inhouse Branding</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/tees1.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/headwear1.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+             <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/filderpen.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/reg.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                 <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/staffid.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+             <h2>Promotional Materials</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/tees2.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/headwear2.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/books.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/bottlepen.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+             <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/lanyards.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/partid.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/totebags.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/wristbands.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+             <h2>Advertising Materials</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/magazine.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/webbanner.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/poster1.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/poster2.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/billb.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+            <h2>Signages</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/sign1.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/sign2.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+
+             <h2>Mockups</h2>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m1.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m2.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m3.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m4.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m5.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m6.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m7.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m8.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m9.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m10.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m11.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m12.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m13.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m14.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m15.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/talent/m16.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div></div>
+    </div>
+
+    
+    <!-- YOUTH DAY ART FESTIVAL SECTION -->
+    <div id="youthday" class="brand-section">
+        <div class="narrative-container">
+            <div class="narrative-row"><h2 class="narrative-label">Project Description</h2><p class="narrative-body">This is a five day event that will be hosted at Constitutional Hill. 
+the branding and style must take inspiration from ideas of freedom, 
+a festive feeling, as well as the landscape around Constitutional Hill 
+(including the Constitutional Court). This event will have various 
+artists such as poets, fine artists, filmmaker, musicians, etc.</p></div>
+            </div>
+
+        <div class="visual-showcase-container">
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/concepts.jpg" alt="Youth Day Art Festival Moodboard"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo Concepts</h5><p>I will explain where these come from as we move along.</p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/wordmark.jpg" alt="Youth Day Art Festival Logo Concepts"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Wordmark</h5><p>The Youth Day Art Festival word mark is 
+designed to be youthful, friendly, 
+and modern.</p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/logoicon.jpg" alt="Youth Day Art Festival Colour Swatches"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Icon</h5><p>For most people, this is the 
+day that represented freedom 
+for them. This was the first day 
+black people voted.</p></div>
+                    </aside>
+            </div>
+
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/logovar.jpg" alt="Youth Day Art Festival Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo and Variation</h5><p></aside>
+            </div>
+            <div class="visual-row">
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/logofullcolour.jpg" alt="Youth Day Art Festival Final Logo Display"></div></div>
+                <aside class="sidebar-description-rail">
+                    <div class="sidebar-card"><h5>Logo and Variation</h5><p></aside>
+            </div>
+            <h4>Additional Graphics</h4>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/graphics.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/graphics1.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/graphics2.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/graphics3.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                 <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/graphics4.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <h4>Visual Identity and promotional materials</h4>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m1.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m2.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m3.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m4.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m5.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m6.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m7.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m8.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m9.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m10.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m11.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m12.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m13.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m14.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+<div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m15.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m16.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+                
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m17.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m18.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m19.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m20.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m21.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/m22.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+            <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/23.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+           
+            </div>
+<h4>Editorial Design</h4>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/ed1.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/ed2.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/ed3.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/ed4.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/ed5.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/ed6.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+            </div>
+            <div class="visual-row">
+                
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/ed7.jpg" alt="Soweto Jazz Festival Business Cards"></div></div>
+                 <div class="visual-row"></div>
+                <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/ed8.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+            <div class="media-panel-container"><div class="media-showcase-block"><img src="casestudies/youth day/ed9.jpg" alt="Soweto Jazz Festival Leaflet"></div></div>
+            
+            </div>
+            
+          
+        </div>
+        </div></div>
+
+       
+
+   <footer>
+    <div class="footer-content">
+        <div class="footer-left">
+            <h3>Let's design identities, <br>tell stories and capture meaningful moments.</h3>
+        </div>
+        <div class="footer-right">
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <a href="mailto:gthabanyane@gmail.com">Email</a>
+                <a href="https://linkedin.com" target="https://www.linkedin.com/in/gift-thabanyane-646271250/">LinkedIn</a>
+                <a href="https://instagram.com" target="https://www.instagram.com/immaculategiftthabanyane/">Instagram</a>
+                <a href="https://facebook.com" target="https://www.facebook.com/gift.thabanyane/">Facebook</a>
+                <a href="https://behance.net" target="https://www.behance.net/giftthabanyane/">Behance</a>
+            </div>
+            <div class="footer-column">
+                <h4>Navigation</h4>
+                <a href="index.html">Design Work</a>
+            <a href="casestudies.html">Case Studies</a>
+            <a href="photography.html">Photography</a>
+            <a href="motiongraphics.html">Motion Graphics</a>
+            <a href="contact.html">Contact</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026. All rights reserved.</p>
+    </div>
+</footer>
+
+    <script>
+        function filterBrand(categoryId) {
+            const sections = document.querySelectorAll('.brand-section');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            sections.forEach(section => section.classList.remove('active-section'));
+            buttons.forEach(button => button.classList.remove('active-tab'));
+
+            const targetSection = document.getElementById(categoryId);
+            if (targetSection) {
+                targetSection.classList.add('active-section');
+            }
+            event.currentTarget.classList.add('active-tab');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
+
+    <!-- TAB SWITCHING MECHANICS LOGIC -->
+    <script>
+        function filterBrand(categoryId) {
+            const sections = document.querySelectorAll('.brand-section');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            sections.forEach(section => section.classList.remove('active-section'));
+            buttons.forEach(button => button.classList.remove('active-tab'));
+
+            const targetSection = document.getElementById(categoryId);
+            if (targetSection) {
+                targetSection.classList.add('active-section');
+            }
+            event.currentTarget.classList.add('active-tab');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>

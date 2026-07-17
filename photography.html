@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography — Responsive Portfolio</title>
+    <!-- Google Fonts Embed Link -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <style>
+        /* Base styles matching overview & design pages */
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 100;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        /* Responsive Navigation Bar Container */
+        nav {
+            background-color: #000000;
+            box-shadow: 0 1px 2px rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        /* Center-aligned links wrapper */
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-links li {
+            display: inline-block;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 40px 80px;
+            display: block;
+            transition: color 0.2s ease, background-color 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600; 
+        }
+
+        .nav-links a:hover, .nav-links .active-nav {
+            color: #616161;
+            background-color: #000000;
+        }
+
+        /* Typography Heading Container */
+        .content-container {
+            max-width: 10000px;
+            margin: 100px auto 40px auto;
+            padding: 0 60px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 4.3rem;
+            margin-top: 20px;
+            margin-bottom: 50px;
+            color: #727272;
+        }
+
+        h1:hover {
+            color: #ffffff;
+            background-color: #000000;
+        }
+
+        /* Photography Grid Layout Canvas */
+        .photo-container-grid {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin: 60px auto;
+            padding: 0 60px;
+            max-width: 100%;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .photo-card-wrapper {
+            flex: 1;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Photographic aspect ratio boxes */
+        .photo-block-item {
+            width: 100%;
+            background-color: #1a1a1a;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-in; /* Changes cursor indicator to a magnifying glass zoom option */
+        }
+
+        /* Standard Landscape Photo Aspect Ratio (3:2 format) */
+        .landscape-photo {
+            aspect-ratio: 3 / 2;
+        }
+
+        /* Standard Portrait Photo Aspect Ratio (4:5 format) */
+        .portrait-photo {
+            aspect-ratio: 4 / 5;
+        }
+
+        .photo-block-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        /* Subtle interactive movement inside framing on cursor hover */
+        .photo-block-item:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Photo Description Captions layout rules */
+        .photo-caption {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.5rem;
+            color: #a0a0a0;
+            text-align: left;
+            margin: 0;
+        }
+
+        /* LIGHTBOX SYSTEM: Immersive full screen background layer modal setup */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000000; /* True pure black background immersion block */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            cursor: zoom-out; /* Clicking anywhere closes the modal zoom view */
+        }
+
+        /* Activated full screen layout triggered by script changes */
+        .lightbox-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Expanded view scaling rule fills the viewport canvas up completely edge-to-edge */
+        .lightbox-image {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover; /* Forces the photo content to scale up over the entire screen frame */
+            transform: scale(0.98);
+            transition: transform 0.3.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .lightbox-overlay.active .lightbox-image {
+            transform: scale(1);
+        }
+
+        /* Minimalist Portfolio Footer */
+        footer {
+            background-color: #000000;
+            border-top: 1px solid #1a1a1a;
+            margin-top: 120px;
+            padding: 80px 60px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .footer-left h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 2rem;
+            margin: 0 0 16px 0;
+            color: #ffffff;
+        }
+
+        .footer-left p {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: #727272;
+            margin: 0;
+            text-align: left;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 60px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-column h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #727272;
+            margin: 0 0 8px 0;
+        }
+
+        .footer-column a {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            margin-top: 80px;
+            border-top: 1px solid #1a1a1a;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1rem;
+            color: #555555;
+            margin: 0;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .photo-container-grid {
+                flex-direction: column;
+                align-items: center;
+                padding: 0 32px;
+                margin: 40px auto;
+                gap: 48px;
+            }
+            .photo-card-wrapper {
+                width: 100%;
+            }
+            footer {
+                padding: 60px 32px;
+                margin-top: 80px;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 48px;
+            }
+            .footer-right {
+                width: 100%;
+                justify-content: flex-start;
+                gap: 80px;
+            }
+            .footer-bottom {
+                margin-top: 48px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Design Work</a></li>
+            <li><a href="casestudies.html">Case Studies</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="motiongraphics.html">Motion Graphics</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="content-container">
+        <h1>"Photography takes an instant out of time, altering life by holding it still." – Dorothea Lange</h1>
+    </div>
+
+    <!-- Row 1: Landscape Format Grid (3:2) -->
+    <div class="photo-container-grid">
+        <div class="photo-card-wrapper">
+            <div class="photo-block-item landscape-photo" onclick="openZoom(this)">
+                <img src="photography/fall off.jpg" alt="Light Fall off">
+            </div>
+            <p class="photo-caption">Light Fall off</p>
+        </div>
+        <div class="photo-card-wrapper">
+            <div class="photo-block-item landscape-photo" onclick="openZoom(this)">
+                <img src="photography/fall off 2.jpg" alt="Light Fall off 2">
+            </div>
+            <p class="photo-caption">Light Fall off 2</p>
+        </div>
+    </div>
+
+             <!-- Row 2: Portrait Format Grid Custom Shorter (3:2 Landscape) -->
+    <div class="photo-container-grid">
+        <div class="photo-card-wrapper">
+            <div class="photo-block-item landscape-photo" onclick="openZoom(this)">
+                <img src="photography/Product.jpg" alt="Product Shot">
+            </div>
+            <p class="photo-caption">Product Shot</p>
+        </div>
+        <div class="photo-card-wrapper">
+            <div class="photo-block-item landscape-photo" onclick="openZoom(this)">
+                <img src="photography/Light and dark.jpg" alt="Light and Dark">
+            </div>
+            <p class="photo-caption">Light and Dark</p>
+        </div>
+    </div>
+
+    <div class="photo-container-grid">
+        <div class="photo-card-wrapper">
+            <div class="photo-block-item landscape-photo" onclick="openZoom(this)">
+                <img src="photography/abstract architecture.jpg" alt="Abstract Architecture">
+            </div>
+            <p class="photo-caption">Abstract Architecture</p>
+        </div>
+        <div class="photo-card-wrapper">
+            <div class="photo-block-item landscape-photo" onclick="openZoom(this)">
+                <img src="photography/depth of field.jpg" alt="Depth of Field">
+            </div>
+            <p class="photo-caption">Depth of Field</p>
+        </div>
+    </div>
+
+    <div class="photo-container-grid">
+        <div class="photo-card-wrapper">
+            <div class="photo-block-item landscape-photo" onclick="openZoom(this)">
+                <img src="photography/glass abstract.jpg" alt="Glass Abstract">
+            </div>
+            <p class="photo-caption">Glass Abstract</p>
+        </div>
+        <div class="photo-card-wrapper">
+            <div class="photo-block-item landscape-photo" onclick="openZoom(this)">
+                <img src="photography/architecture abstract.jpg" alt="Architecture Abstract">
+            </div>
+            <p class="photo-caption">Architecture Abstract</p>
+        </div>
+    </div>
+
+    <div class="photo-container-grid">
+        <div class="photo-card-wrapper">
+            <div class="photo-block-item landscape-photo" onclick="openZoom(this)">
+                <img src="photography/landscape.jpg" alt="Landscape">
+            </div>
+            <p class="photo-caption">Landscape</p>
+        </div>
+        <div class="photo-card-wrapper">
+            <div class="photo-block-item landscape-photo" onclick="openZoom(this)">
+                <img src="photography/slow shutter.jpg" alt="Slow Shutter">
+            </div>
+            <p class="photo-caption">Slow Shutter</p>
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox-overlay" onclick="closeZoom()">
+        <img id="lightbox-img" class="lightbox-image" src="" alt="Zoom">
+    </div>
+<footer>
+    <div class="footer-content">
+        <div class="footer-left">
+            <h3>Let's design identities, <br>tell stories and capture meaningful moments.</h3>
+        </div>
+        <div class="footer-right">
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <a href="mailto:gthabanyane@gmail.com">Email</a>
+                <a href="https://linkedin.com" target="https://www.linkedin.com/in/gift-thabanyane-646271250/">LinkedIn</a>
+                <a href="https://instagram.com" target="https://www.instagram.com/immaculategiftthabanyane/">Instagram</a>
+                <a href="https://facebook.com" target="https://www.facebook.com/gift.thabanyane/">Facebook</a>
+                <a href="https://behance.net" target="https://www.behance.net/giftthabanyane/">Behance</a>
+            </div>
+            <div class="footer-column">
+                <h4>Navigation</h4>
+                <a href="index.html">Design Work</a>
+            <a href="casestudies.html">Case Studies</a>
+            <a href="photography.html">Photography</a>
+            <a href="motiongraphics.html">Motion Graphics</a>
+            <a href="contact.html">Contact</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026. All rights reserved.</p>
+    </div>
+</footer>
+
+    <script>
+        function openZoom(e) {
+            document.getElementById('lightbox-img').src = e.querySelector('img').src;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeZoom() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>
+

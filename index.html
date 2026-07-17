@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Work — Responsive Portfolio</title>
+    <!-- Google Fonts Embed Link -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <style>
+        /* Base styles */
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 100;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        nav {
+            background-color: #000000;
+            box-shadow: 0 1px 2px rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        /* Center-aligned links wrapper */
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-links li {
+            display: inline-block;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 40px 50px;
+            display: block;
+            transition: color 0.2s ease, background-color 0.2s ease;
+            
+            /* Poppins used for bold/navigation typography */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600; 
+        }
+
+        .nav-links a:hover, .nav-links .active-nav {
+            color: #616161;
+            background-color: #000000;
+        }
+
+        /* Hidden checkbox to handle mobile toggle natively without JavaScript */
+        #menu-toggle {
+            display: none;
+        }
+
+        /* Mobile Hamburger Icon (Hidden by default) */
+        .menu-icon {
+            display: none;
+            cursor: pointer;
+            padding: 100px;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .menu-icon span {
+            background: bold;
+            background-color: #ffffff;
+            display: block;
+            height: 2px;
+            width: 5px;
+            position: relative;
+            transition: background-color 0.2s ease;
+        }
+
+        .menu-icon span::before,
+        .menu-icon span::after {
+            background-color: #ffffff;
+            content: '';
+            display: block;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            transition: all 0.2s ease;
+        }
+
+        .menu-icon span::before {
+            top: 8px;
+        }
+
+        .menu-icon span::after {
+            bottom: 8px;
+        }
+
+        /* Typography & Layout Content Content */
+        .content-container {
+            max-width: 10000px;
+            margin: 100px auto 40px auto;
+            padding: 0 60px;
+            text-align: center;
+        }
+
+        h1 {
+            /* Poppins used for headings */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 4rem;
+            margin-top: 90px;
+            margin-bottom: 150px;
+            color: #727272;
+        }
+
+        h1:hover {
+            color: #ffffff;
+            background-color: #000000;
+        }
+
+        /* Responsive Portfolio Sub-Tabs Button Group Styling */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 80px;
+            padding: 0 60px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background-color: transparent;
+            border: 1px solid #333333;
+            color: #727272;
+            
+            /* Poppins used for bold/button typography */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            
+            cursor: pointer;
+            padding: 15px 35px;
+            transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tab-button:hover {
+            color: #ffffff;
+            border-color: #616161;
+            background-color: #111111;
+        }
+
+        .tab-button.active-tab {
+            color: #000000;
+            background-color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        /* Responsive Blocks Added Below */
+        .image-container-grid {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin: 80px auto;
+            padding: 0 60px;
+            max-width: 100%;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        /* Flex column wrapper to hold each image item and its respective caption below */
+        .image-card-wrapper {
+            flex: 1;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .image-block-item {
+            width: 100%;
+            aspect-ratio: 492 / 328; /* Standard original 3:2 frame ratio geometry */
+            background-color: #1a1a1a;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-block-item img {
+            width: 120%;
+            height: 120%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-block-item img:hover {
+            opacity: 0.95;
+        }
+
+        /* Style rule for captions below the image blocks using standard body copy font */
+        .image-caption {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.5rem;
+            color: #a0a0a0;
+            text-align: left;
+            margin: 0;
+        }
+
+        .image-caption:hover {
+            color: #ffffff;
+        }       
+
+        /* Portfolio Category Sections Definition Rules */
+        .portfolio-section {
+            display: none; /* Hides all categories by default so JavaScript can show them dynamically */
+        }
+
+        .portfolio-section.active-section {
+            display: block; /* Reveals only the selected active section */
+        }
+
+        @media screen and (max-width: 1024px) {
+            .image-container-grid {
+                flex-direction: column;
+                align-items: center;
+                padding: 0 32px;
+                margin: 40px auto;
+                gap: 48px;
+            }
+            .image-card-wrapper {
+                width: 100%;
+            }
+            .image-block-item {
+                width: 100%;
+                height: auto;
+            }
+            .tabs-container {
+                gap: 12px;
+                padding: 0 32px;
+                margin-bottom: 40px;
+            }
+            .tab-button {
+                font-size: 0.9rem;
+                padding: 12px 24px;
+                width: 100%; /* Auto-stacks full width neatly on mobile screens */
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+<body>
+
+    <nav>
+        <!-- The checkbox element handles the responsive click toggling natively -->
+        <input type="checkbox" id="menu-toggle">
+        
+        <label for="menu-toggle" class="menu-icon">
+            <span></span>
+        </label>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Design Work</a></li>
+            <li><a href="casestudies.html">Case Studies</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="motiongraphics.html">Motion Graphics</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="content-container">
+        <h1>Crafting memorable identities through <br>strategic logo design and identity systems.</h1>
+    </div>
+
+    <!-- Filter Buttons System -->
+    <div class="tabs-container">
+        <button class="tab-button active-tab" onclick="filterCategory('logo')">Logo Design</button>
+        <button class="tab-button" onclick="filterCategory('packaging')">Packaging</button>
+        <button class="tab-button" onclick="filterCategory('corporate')">Corporate Identity</button>
+        <button class="tab-button" onclick="filterCategory('layout')">Layout and Design</button>
+        <button class="tab-button" onclick="filterCategory('web')">Web Design</button>
+        <button class="tab-button" onclick="filterCategory('advertisement')">Advertisement</button>
+    </div>
+
+    <!-- Category Section: Logo Design -->
+    <div id="logo" class="portfolio-section active-section">
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="logos/aquaelite.jpg" alt="Aqua Elite Logo Design">
+                </div>
+                <p class="image-caption">Designed for a premium water, vodka and gin packaging.</p>
+            </div>
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="logos/aruna (2).jpg" alt="Aruna Logo Design">
+                </div>
+                <p class="image-caption">Designed for an Asian theme inspired perfume. 
+Inspired by Wat Aruna (Temple of Dawn) in Bangkok - Thailand.</p>
+            </div>
+        </div>
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="logos/sunbird.jpg" alt="Sunbird Logo Design">
+                </div>
+                <p class="image-caption">Re-branded a tea brand. The purpose was to give it a new modern look and 
+also introduce a new product to be enjoyed by young people and actually solve a health concern.</p>
+            </div>
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="logos/sunshine.jpg" alt="Sunshine Logo Design">
+                </div>
+                <p class="image-caption">This is an Eastern Cape based 
+company that offers four day tourism to visitors and citizens.</p>
+            </div>
+        </div>
+    </div>
+    <div id="logo" class="portfolio-section active-section">
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="logos/metash.jpg" alt="Metash Logo Design">
+                </div>
+                <p class="image-caption">Logo design for an online women boutique shop.
+Made for women that make a statement with how they dress up. </p>
+            </div>
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="logos/jazz fest.jpg" alt="Jazz Festival Logo Design">
+                </div>
+                <p class="image-caption">Designed for a short-lived Jazz event that would take 
+place in Soweto. Made to have a youthful look for young Jazz music lovers.</p>
+            </div>
+        </div>
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="logos/lifeskills.jpg" alt="Lifeskills Logo Design">
+                </div>
+                <p class="image-caption">Re-designed a logo for a business 
+that does recruitments, training and consultancy. </p>
+            </div>
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="logos/young talent.jpg" alt="Young Talent Logo Design">
+                </div>
+                <p class="image-caption">Young Talent Showcase is a kasi (hood) talent showcase for kasi 
+creatives. It focuses on market (creatives can sell their merch) and creative competitions.</p>
+            </div>
+        </div>
+    </div>
+     <div id="logo" class="portfolio-section active-section">
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="logos/asanti.jpg" alt="Asanti Logo Design">
+                </div>
+                <p class="image-caption">Restaurant logo design inspired 
+by the Ghanaian culture - specifically the Ashanti people. </p>
+            </div>
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="logos/rise.jpg" alt="Rise and Shine Logo Design">
+                </div>
+                <p class="image-caption">Designed for a South African breakfast show.</p>
+            </div>
+        </div>
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="logos/youth day.jpg" alt="Youth Day art festival Logo Design">
+                </div>
+                <p class="image-caption">Designed for a five day event that will be hosted by the Constitutional Hill 
+in celebration of the youth through music, visual art, poetry, film, talk shows, etc.</p>
+            </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Category Section: Packaging -->
+    <div id="packaging" class="portfolio-section">
+        <div class="image-container-grid">
+            <!-- Wrapped in a link to enter the overview/visuals page -->
+            <a href="project-vesper.html" class="image-card-wrapper" style="text-decoration: none;">
+                <div class="image-block-item">
+                    <img src="OVERVIEW/Aquaelite.jpg" alt="AquaElite Sparkling Water, Vodka and Gin Packaging">
+                </div>
+                <p class="image-caption">AquaElite Sparkling Water, Vodka and Gin — Premium Bottle Crafting & Label Artwork</p>
+            </a>
+            
+            <a href="sunbird.html" class="image-card-wrapper" style="text-decoration: none;">
+                <div class="image-block-item">
+                    <img src="OVERVIEW/MORNING BOOST.jpg" alt="caffein free energy drink packaging">
+                </div>
+                <p class="image-caption">Sunbird — Caffeine-Free Energy Drink Packaging</p>
+            </a>
+
+            <a href="aruna.html" class="image-card-wrapper" style="text-decoration: none;">
+                <div class="image-block-item">
+                    <img src="OVERVIEW/bottle and package.jpg" alt="bottle and package design for perfume">
+                </div>
+                <p class="image-caption">Aruna — Luxurious Perfume Bottle & Packaging Design</p>
+            </a>
+        </div>
+    </div>
+
+
+     <!-- Category Section: Corporate Identity -->
+        
+    <div id="corporate" class="portfolio-section">
+        <div class="image-container-grid">
+            <!-- Wrapped in a link to enter the case study overview page -->
+            <a href="ytscorp.html" class="image-card-wrapper" style="text-decoration: none;">
+                <div class="image-block-item">
+                    <img src="yts/yts_logo.jpg" alt="yts logo">
+                </div>
+                <p class="image-caption">Corporate Identity, Corporate Gifts and visual assets for Young Talent Showcase</p>
+            </a>
+            
+            <a href="lifeskillshub.html" class="image-card-wrapper" style="text-decoration: none;">
+                <div class="image-block-item">
+                    <img src="lifeskills/presentation file.png" alt="Corporate Project Two">
+                </div>
+                <p class="image-caption">Lifeskills Hub — Corporate Identity & Visual Assets</p>
+            </a>
+
+            <a href="artfest.html" class="image-card-wrapper" style="text-decoration: none;">
+                <div class="image-block-item">
+                    <img src="artfest/Instagram Post Mockup 2019.jpg" alt="Corporate Project Two">
+                </div>
+                <p class="image-caption">Youth Day Art Festival - Corporate Identity & Visual Assets</p>
+            </a>
+        </div>
+    </div>
+
+    <div id="corporate" class="portfolio-section">
+        <div class="image-container-grid">
+            <!-- Wrapped in a link to enter the case study overview page -->
+            <a href="ytscorp.html" class="image-card-wrapper" style="text-decoration: none;">
+                <div class="image-block-item">
+                    <img src="yts/yts_logo.jpg" alt="yts logo">
+                </div>
+                <p class="image-caption">Corporate Identity, Corporate Gifts and visual assets for Young Talent Showcase</p>
+            </a>
+            
+            <a href="lifeskillshub.html" class="image-card-wrapper" style="text-decoration: none;">
+                <div class="image-block-item">
+                    <img src="lifeskills/presentation file.png" alt="Corporate Project Two">
+                </div>
+                <p class="image-caption">Lifeskills Hub — Corporate Identity & Visual Assets</p>
+            </a>
+        </div>
+    </div>
+
+
+    
+
+    <!-- Category Section: Layout and Design -->
+    <div id="layout" class="portfolio-section">
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="layout/cover.jpg" alt="book cover for youth day art festival">
+                </div>
+                <p class="image-caption">Youth Day Art Festival — Book Cover Design</p>
+            </div>
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="layout/Free_Square_Book_Mockup_6.jpg" alt="fist double page layout for youth day art festival">
+                </div>
+                <p class="image-caption">Youth activism and creative freedom</p>
+            </div>
+        </div>
+
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="layout/Free_Book_Mockup_3.jpg" alt="creativity talking points">
+                </div>
+                <p class="image-caption">Talking Points on Creativity and Youth Expression</p>
+            </div>
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="layout/Square_Book_Mockup_8.jpg" alt="purely type layout design for youth day art festival">
+                </div>
+                <p class="image-caption">Typographic Layout for Youth Day Art Festival</p>
+            </div>
+        </div>
+
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="layout/chonga.jpg" alt="Chonga - Editorial Magazine Layout & Grid Typography">
+                </div>
+                <p class="image-caption">Chonga - Editorial Magazine Layout & Grid Typography</p>
+            </div>
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="layout/shutterspeed.jpg" alt="shutter speed magazine layout design">
+                </div>
+                <p class="image-caption">SHUTTERSPEED 2 — Editorial Layout & Typography</p>
+            </div>
+        </div>
+
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="layout/aqua.jpg" alt="shutter speed magazine layout design">
+                </div>
+                <p class="image-caption">Sparkling Water — Editorial Layout Ad</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Category Section: Web Design -->
+    <div id="web" class="portfolio-section">
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="web design/artfest.jpg" alt="Youth Day Art Festival Web Design">
+                </div>
+                <p class="image-caption">Youth Day Art Festival Landing page</p>
+            </div>
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="web design/asanti maison.jpg" alt="Web Project Two">
+                </div>
+                <p class="image-caption">Asanti Maison — Restaurant Landing Page</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Section: Advertisement -->
+    <div id="advertisement" class="portfolio-section">
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="advertisment/ydaf_billboard.jpg" alt="Youth Day Art Festival Billboard Advertisement">
+                </div>
+                <p class="image-caption">Youth Day Art Festival Billboard Advertisement</p>
+            </div>
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="advertisment/sjf_poster.jpg" alt="Jazz Festival Poster Advertisement">
+                </div>
+                <p class="image-caption">Jazz Festival Poster Advertisement</p>
+            </div>
+        </div>
+
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="advertisment/ydaf_poster.jpg" alt="Youth Day Art Festival Poster Advertisement">
+                </div>
+                <p class="image-caption">Youth Day Art Festival Poster Advertisement</p>
+            </div>
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="advertisment/socials aqua.jpg" alt="AquaElite Social Media Advertisement">
+                </div>
+                <p class="image-caption">AquaElite — Social Media Campaign</p>
+            </div>
+        </div>
+
+        <div class="image-container-grid">
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="advertisment/socials_asanti.jpg" alt="Asanti Maison Social Media Advertisement">
+                </div>
+                <p class="image-caption">Asanti Maison — Social Media Campaign</p>
+            </div>
+            <div class="image-card-wrapper">
+                <div class="image-block-item">
+                    <img src="advertisment/guerrilla ad.jpg" alt="Naked Guerrilla Advertisement">
+                </div>
+                <p class="image-caption">Naked — Guerrilla Marketing Campaign</p>
+            </div>
+        </div>
+    </div>
+
+  <!-- Minimalist Studio Footer HTML -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-left">
+            <h3>Let's design identities, <br>tell stories and capture meaningful moments.</h3>
+        </div>
+        <div class="footer-right">
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <a href="mailto:gthabanyane@gmail.com">Email</a>
+                <a href="https://linkedin.com" target="https://www.linkedin.com/in/gift-thabanyane-646271250/">LinkedIn</a>
+                <a href="https://instagram.com" target="https://www.instagram.com/immaculategiftthabanyane/">Instagram</a>
+                <a href="https://facebook.com" target="https://www.facebook.com/gift.thabanyane/">Facebook</a>
+                <a href="https://behance.net" target="https://www.behance.net/giftthabanyane/">Behance</a>
+            </div>
+            <div class="footer-column">
+                <h4>Navigation</h4>
+                <a href="index.html">Design Work</a>
+            <a href="casestudies.html">Case Studies</a>
+            <a href="photography.html">Photography</a>
+            <a href="motiongraphics.html">Motion Graphics</a>
+            <a href="contact.html">Contact</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Accompanying Layout CSS (Place inside your <style> tags) -->
+<style>
+    /* Responsive Minimalist Footer */
+    footer {
+        background-color: #000000;
+        border-top: 1px solid #1a1a1a;
+        margin-top: 120px;
+        padding: 80px 60px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .footer-left h3 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 2rem;
+        margin: 0 0 16px 0;
+        color: #ffffff;
+    }
+
+    .footer-left p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 1.2rem;
+        color: #727272;
+        margin: 0;
+        text-align: left;
+    }
+
+    .footer-right {
+        display: flex;
+        gap: 60px;
+    }
+
+    .footer-column {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .footer-column h4 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #727272;
+        margin: 0 0 8px 0;
+    }
+
+    .footer-column a {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 1.2rem;
+        color: #a0a0a0;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .footer-column a:hover {
+        color: #ffffff;
+    }
+
+    .footer-bottom {
+        margin-top: 80px;
+        border-top: 1px solid #1a1a1a;
+        padding-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .footer-bottom p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 1rem;
+        color: #555555;
+        margin: 0;
+    }
+
+    /* Tablet and Mobile Screen Adaptations */
+    @media screen and (max-width: 1024px) {
+        footer {
+            padding: 60px 32px;
+            margin-top: 80px;
+        }
+        .footer-content {
+            flex-direction: column;
+            gap: 48px;
+        }
+        .footer-right {
+            width: 100%;
+            justify-content: flex-start;
+            gap: 80px;
+        }
+        .footer-bottom {
+            margin-top: 48px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+        }
+    }
+</style>
+
+
+    <!-- Tab Filtering System Logic Script -->
+    <script>
+        function filterCategory(categoryId) {
+            // Select all defined grid sections and button groups
+            const sections = document.querySelectorAll('.portfolio-section');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            // Deactivate all sections instantly to clear out visible containers
+            sections.forEach(section => {
+                section.classList.remove('active-section');
+            });
+
+            // Strip out primary white highlight styling rules from non-active buttons
+            buttons.forEach(button => {
+                button.classList.remove('active-tab');
+            });
+
+            // Target individual properties and apply visible activation highlights
+            document.getElementById(categoryId).classList.add('active-section');
+            event.currentTarget.classList.add('active-tab');
+        }
+    </script>
+    
+</body>
+</html>
