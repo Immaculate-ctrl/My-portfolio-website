@@ -192,6 +192,26 @@
             align-items: center;
             justify-content: center;
         }
+/* 1. Target the images inside your portfolio blocks */
+.image-block-item img {
+    width: 120%;
+    height: 120%;
+    object-fit: cover;
+    display: block;
+    
+    /* NEW: Turn the image completely black and white by default */
+    filter: grayscale(100%);
+    
+    /* NEW: Add a smooth 0.4-second transition animation */
+    transition: filter 0.4s ease, opacity 0.2s ease;
+}
+
+/* 2. Remove the black and white effect when hovering */
+.image-card-wrapper:hover .image-block-item img,
+.image-block-item:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+}
 
         .image-block-item img {
             width: 120%;
