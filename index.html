@@ -227,93 +227,10 @@
             display: block; /* Reveals only the selected active section */
         }
 
-                /* Fixed & Fully Corrected Mobile Media Breakpoint */
+             /* Responsive Breakpoint Adaptations */
+        /* Responsive Breakpoint Adaptations */
         @media screen and (max-width: 1024px) {
-            /* 1. FORCE THE NAVIGATION LINKS WRAPPER TO COLLAPSE ACCURATELY */
-            .nav-links {
-                display: none; /* Hide standard links structure */
-                flex-direction: column;
-                width: 100%;
-                background-color: #000000;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                z-index: 99;
-                border-top: 1px solid #1a1a1a;
-            }
-
-            .nav-links li {
-                display: block;
-                width: 100%;
-            }
-
-            .nav-links a {
-                padding: 25px 32px;
-                border-bottom: 1px solid #1a1a1a;
-                font-size: 1.2rem;
-            }
-
-            /* 2. REVEAL THE MOBILE HAMBURGER WRAPPER */
-            .menu-icon {
-                display: block !important; /* Forces visibility override rules */
-                padding: 40px; /* Reduced from 100px so it fits inside standard navbar bounds */
-                position: absolute;
-                right: 0;
-                top: 0;
-                z-index: 100;
-            }
-
-            /* FIXED: Expanded widths from 5px to 25px so the lines are fully visible */
-            .menu-icon span {
-                background-color: #ffffff;
-                display: block;
-                height: 2px;
-                width: 25px; 
-                position: relative;
-                transition: background-color 0.2s ease;
-            }
-
-            .menu-icon span::before,
-            .menu-icon span::after {
-                background-color: #ffffff;
-                content: '';
-                display: block;
-                height: 100%;
-                width: 100%;
-                position: absolute;
-                transition: all 0.2s ease;
-            }
-
-            .menu-icon span::before {
-                top: 8px;
-            }
-
-            .menu-icon span::after {
-                bottom: 8px;
-            }
-
-            /* 3. INTERACTIVE CLICK ACTIONS MECHANICS (NATIVE INSTRUCTION CODES) */
-            #menu-toggle:checked ~ .nav-links {
-                display: flex; /* Opens up layout dropdown block on menu selection toggle */
-            }
-
-            /* Transforms hamburger lines into a sharp minimal "X" close symbol layout natively */
-            #menu-toggle:checked ~ .menu-icon span {
-                background-color: transparent;
-            }
-
-            #menu-toggle:checked ~ .menu-icon span::before {
-                transform: rotate(45deg);
-                top: 0;
-            }
-
-            #menu-toggle:checked ~ .menu-icon span::after {
-                transform: rotate(-45deg);
-                top: 0;
-            }
-
-            /* 4. LAYOUT COMPONENT STACKING RESPONSIVENESS OVERRIDES */
-            .content-container, .narrative-container, .visual-showcase-container, .identity-grid-container, footer {
+            .case-study-hero, .narrative-container, .visual-showcase-container, .identity-grid-container, footer {
                 padding: 0 32px;
             }
             h1 {
@@ -330,7 +247,18 @@
                 width: 100%;
                 text-align: center;
             }
-            .narrative-row, .visual-row, .identity-row-split {
+            .narrative-row {
+                flex-direction: column;
+                gap: 12px;
+                margin-bottom: 40px;
+            }
+            .narrative-label {
+                min-width: 100%;
+            }
+            .narrative-body {
+                font-size: 1.3rem;
+            }
+            .visual-row, .identity-row-split {
                 flex-direction: column;
                 gap: 40px;
                 margin-bottom: 60px;
@@ -346,6 +274,12 @@
                 padding-top: 40px;
                 gap: 32px;
             }
+            .identity-card-wrapper {
+                width: 100%;
+            }
+            .identity-description-block {
+                margin-bottom: 0;
+            }
             footer {
                 padding: 60px 32px;
                 margin-top: 80px;
@@ -353,6 +287,11 @@
             .footer-content {
                 flex-direction: column;
                 gap: 48px;
+            }
+            .footer-right {
+                width: 100%;
+                justify-content: flex-start;
+                gap: 80px;
             }
             .footer-bottom {
                 margin-top: 48px;
