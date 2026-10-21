@@ -478,7 +478,7 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; }
 }
 
 @media (max-width: 520px) {
-  .top__mark { font-size: 18px; }
+  .top__mark { font-size: 15px; }
   .pill { padding: 8px 12px; font-size: 10px; }
   .thread-toggle__txt { max-width: 0; overflow: hidden; display: inline-block; }
   .thread-toggle { gap: 0; padding: 10px; }
