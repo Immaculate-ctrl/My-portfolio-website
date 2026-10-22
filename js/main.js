@@ -35,6 +35,7 @@
      --------------------------------------------------------------------- */
   const groups = {};
   const addGroup = (key, list) => (groups[key] = list);
+  const processes = {}; // case studies, opened in the scrolling process view
 
   /* ---------------------------------------------------------------------
      Templates
@@ -56,7 +57,7 @@
             <span class="mark-card__info"><strong>${esc(it.title)}</strong><span class="tag">${esc(it.tag)}</span></span>
             <span class="mark-card__text">${esc(it.text)}</span>
           </button>`).join("")}
-        <p class="rail__end">Eleven symbols. <em>Eleven stories</em> waiting to be told →</p>
+        <p class="rail__end">Eleven symbols. <em>Eleven stories</em> waiting to be told ↓</p>
       </div><div class="rail__progress"><i></i></div></div></div>`;
     },
 
@@ -170,7 +171,7 @@
     cases(ch) {
       return `<div class="cases">${ch.items.map((it, i) => {
         const key = `${ch.id}-${i}`;
-        addGroup(key, it.gallery.map((g) => ({ src: g.src, title: `${it.title} — ${g.title}`, note: g.note })));
+        processes[key] = it;
         const cover = Math.max(0, it.gallery.findIndex((g) => g.src === it.img));
         const facts = it.facts?.length
           ? `<details class="case__brief"><summary>Read the brief <span class="mono">${it.facts.length} notes</span></summary>
@@ -178,17 +179,17 @@
           : "";
         return `
         <article class="case" data-item ${it.thread ? 'class-thread="1"' : ""}>
-          <button type="button" class="case__cover" data-lb="${key}" data-lb-index="${cover}" data-cursor="Open">${badge(it)}${frame(it.img, it.title)}</button>
+          <button type="button" class="case__cover" data-process="${key}" data-step="${cover}" data-cursor="Open">${badge(it)}${frame(it.img, it.title)}</button>
           <div class="case__copy">
             <span class="case__no" data-reveal>${pad(i + 1)}</span>
             <h3 class="case__title split">${esc(it.title)}</h3>
             <span class="tag" data-reveal>${esc(it.tag)} · ${it.gallery.length} images</span>
             <p class="case__text" data-reveal style="--d:.1s">${esc(it.text)}</p>
             ${facts}
-            <button type="button" class="btn-line" data-lb="${key}" data-lb-index="0">Walk through the process →</button>
+            <button type="button" class="btn-line" data-process="${key}" data-step="0">Walk through the process ↓</button>
           </div>
           <div class="case__strip drag" data-cursor="Drag"><div class="drag__track">${it.gallery.map((g, n) => `
-            <button type="button" class="case__shot" data-lb="${key}" data-lb-index="${n}">
+            <button type="button" class="case__shot" data-process="${key}" data-step="${n}">
               <span class="case__img"><img src="${esc(g.src)}" alt="${esc(g.title)}" loading="lazy" decoding="async" /></span>
               <span class="case__cap"><span class="mono">${pad(n + 1)}</span>${esc(g.title)}${g.note ? " ✦" : ""}</span>
             </button>`).join("")}</div></div>
@@ -533,7 +534,7 @@
      Lightbox (images + optional video, keyboard + swipe)
      --------------------------------------------------------------------- */
   function lightbox() {
-    const lb = $(".lightbox"), media = $(".lightbox__media"), title = $(".lightbox__title"), count = $(".lightbox__count"), note = $(".lightbox__note");
+    const lb = $(".lightbox"), media = $(".lightbox__media"), title = $(".lightbox__title"), count = $(".lightbox__count");
     let list = [], i = 0, lastFocus = null;
 
     const show = () => {
@@ -542,8 +543,6 @@
         ? `<video src="${esc(it.video)}" poster="${esc(it.src)}" controls autoplay playsinline></video>`
         : `<img src="${esc(it.src)}" alt="${esc(it.title)}" />`;
       title.textContent = it.title;
-      note.textContent = it.note || "";
-      note.hidden = !it.note;
       count.textContent = `${pad(i + 1)} / ${pad(list.length)}`;
       $$(".lightbox__nav", lb).forEach((b) => (b.hidden = list.length < 2));
     };
@@ -579,6 +578,90 @@
     let sx = 0;
     lb.addEventListener("touchstart", (e) => (sx = e.touches[0].clientX), { passive: true });
     lb.addEventListener("touchend", (e) => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1); });
+  }
+
+  /* ---------------------------------------------------------------------
+     Process view: a case study read top to bottom — the step's text stays
+     pinned on the left while its images scroll past on the right
+     --------------------------------------------------------------------- */
+  function processView() {
+    const pv = $(".process"), scroller = $(".process__scroll"), body = $(".process__body");
+    const bar = $(".process__bar"), count = $(".process__count");
+    let io = null, fio = null, lastFocus = null, total = 0;
+
+    // consecutive images with the same heading and no notes read as one step
+    const toSteps = (gallery) => gallery.reduce((steps, g, n) => {
+      const prev = steps[steps.length - 1];
+      if (prev && !g.note && !prev.note && prev.title === g.title) prev.shots.push({ ...g, n });
+      else steps.push({ title: g.title, note: g.note, shots: [{ ...g, n }] });
+      return steps;
+    }, []);
+
+    const open = (key, step) => {
+      const it = processes[key];
+      if (!it) return;
+      const steps = toSteps(it.gallery);
+      total = steps.length;
+      $(".process__kicker").textContent = `${it.tag} · ${it.gallery.length} images`;
+      $(".process__title").textContent = it.title;
+      body.innerHTML = `
+        <section class="pstep pstep--intro">
+          <div class="pstep__text"><span class="mono">The brief</span><p class="pstep__lead">${esc(it.text)}</p></div>
+          <div class="pstep__facts">${(it.facts || []).map((f) => `<div><h4 class="mono">${esc(f.label)}</h4><p>${esc(f.text)}</p></div>`).join("")}</div>
+        </section>
+        ${steps.map((s, k) => `
+        <section class="pstep" data-k="${k}">
+          <div class="pstep__text">
+            <span class="pstep__no mono">Step ${pad(k + 1)} / ${pad(steps.length)}</span>
+            <h3>${esc(s.title)}</h3>
+            ${s.note ? `<p>${esc(s.note)}</p>` : ""}
+          </div>
+          <div class="pstep__media">${s.shots.map((g) => `
+            <figure data-n="${g.n}"><img src="${esc(g.src)}" alt="${esc(g.title)}" loading="lazy" decoding="async" /></figure>`).join("")}
+          </div>
+        </section>`).join("")}
+        <p class="pstep__end mono">End of ${esc(it.title)} — <button type="button" class="link process__done">back to the portfolio</button></p>`;
+
+      lastFocus = document.activeElement;
+      pv.hidden = false;
+      document.body.style.overflow = "hidden";
+      count.textContent = `01 / ${pad(total)}`;
+      const target = step > 0 && $(`figure[data-n="${step}"]`, body);
+      scroller.scrollTop = 0;
+      if (target) target.closest(".pstep").scrollIntoView({ block: "start" });
+
+      // step counter in the header, and images rising in as they scroll into view
+      io?.disconnect(); fio?.disconnect();
+      io = new IntersectionObserver((es) => es.forEach((e) => {
+        if (e.isIntersecting) count.textContent = `${pad(+e.target.dataset.k + 1)} / ${pad(total)}`;
+      }), { rootMargin: "-35% 0px -45% 0px" });
+      $$(".pstep[data-k]", body).forEach((s) => io.observe(s));
+      fio = new IntersectionObserver((es) => es.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add("in"); fio.unobserve(e.target); }
+      }), { threshold: 0.12 });
+      $$("figure", body).forEach((f) => fio.observe(f));
+      pv.classList.add("fx");
+      requestAnimationFrame(() => pv.classList.add("is-open"));
+      $(".process__close").focus({ preventScroll: true });
+    };
+    const close = () => {
+      pv.classList.remove("is-open");
+      document.body.style.overflow = "";
+      setTimeout(() => { pv.hidden = true; body.innerHTML = ""; io?.disconnect(); fio?.disconnect(); }, 500);
+      lastFocus?.focus?.({ preventScroll: true });
+    };
+
+    document.addEventListener("click", (e) => {
+      const t = e.target.closest("[data-process]");
+      if (t) { e.preventDefault(); open(t.dataset.process, +t.dataset.step); }
+      if (e.target.closest(".process__done")) close();
+    });
+    $(".process__close").addEventListener("click", close);
+    addEventListener("keydown", (e) => { if (e.key === "Escape" && !pv.hidden) close(); });
+    scroller.addEventListener("scroll", () => {
+      const max = scroller.scrollHeight - scroller.clientHeight;
+      bar.style.setProperty("--p", max > 0 ? scroller.scrollTop / max : 0);
+    }, { passive: true });
   }
 
   /* ---------------------------------------------------------------------
@@ -685,6 +768,7 @@
   pointerFx();
   dragGallery();
   lightbox();
+  processView();
   menu();
   thread();
   contact();

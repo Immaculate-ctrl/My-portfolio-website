@@ -13,7 +13,7 @@ window.PORTFOLIO = {
   person: {
     first: "Gift",
     last: "Thabanyane",
-    role: ["Identity Designer", "Art Director", "Photographer", "Motion Designer"],
+    role: ["Identity Designer", "Package Designer", "Layout Designer", "Digital Photographer", "Web Designer", "Marketing Designer", "3D Modeller", "Video Editor"],
     intro:
       "I design the first thing people remember about a brand — the mark — and then build the whole world around it.",
     email: "gthabanyane@gmail.com",

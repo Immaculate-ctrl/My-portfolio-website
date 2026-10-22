@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gift Thabanyane — Designer</title>
-  <meta name="description" content="Gift Thabanyane — identity designer, art director, photographer and motion designer. A portfolio told in nine chapters, from a single mark to the process behind it." />
+  <meta name="description" content="Gift Thabanyane — identity, packaging, layout, web and marketing designer, digital photographer, 3D modeller and video editor. A portfolio told in nine chapters, from a single mark to the process behind it." />
   <meta name="theme-color" content="#0b0a09" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -125,10 +125,20 @@
     <button class="lightbox__close" type="button" aria-label="Close">Close ×</button>
     <figure class="lightbox__stage"><div class="lightbox__media"></div>
       <figcaption class="lightbox__cap"><span class="lightbox__title"></span><span class="lightbox__count mono"></span></figcaption>
-      <p class="lightbox__note" hidden></p>
     </figure>
     <button class="lightbox__nav lightbox__prev" type="button" aria-label="Previous">←</button>
     <button class="lightbox__nav lightbox__next" type="button" aria-label="Next">→</button>
+  </div>
+
+  <!-- ===== Process view (case studies) ===== -->
+  <div class="process" role="dialog" aria-modal="true" aria-label="Design process" hidden>
+    <header class="process__top">
+      <div><p class="process__kicker mono"></p><h2 class="process__title"></h2></div>
+      <span class="process__count mono"></span>
+      <button class="pill process__close" type="button">Close ×</button>
+    </header>
+    <div class="process__bar"><i></i></div>
+    <div class="process__scroll"><div class="process__body"></div></div>
   </div>
 
   <script src="js/data.js"></script>
