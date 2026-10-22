@@ -42,8 +42,9 @@
      --------------------------------------------------------------------- */
   // small copies (max 800px) in thumbs/, mirroring each image's path — used wherever an image shows small
   const thumb = (src) => window.ASSET_BASE + "thumbs/" + src.slice(window.ASSET_BASE.length);
-  const frame = (src, title, extra = "") =>
-    `<div class="frame" data-title="${esc(title)}" ${extra}><img src="${esc(src)}" alt="${esc(title)}" loading="lazy" decoding="async" /></div>`;
+  // frames show the small copy unless `full` is set; the viewer always opens the full image
+  const frame = (src, title, extra = "", full = false) =>
+    `<div class="frame" data-title="${esc(title)}" ${extra}><img src="${esc(full ? src : thumb(src))}" alt="${esc(title)}" loading="lazy" decoding="async" /></div>`;
   const badge = (it) => (it.thread ? `<span class="thread-badge">The thread</span>` : "");
   const itemAttrs = (it, group, i) => `data-item ${it.thread ? 'class-thread="1"' : ""} data-lb="${group}" data-lb-index="${i}"`;
 
@@ -55,7 +56,7 @@
         ${ch.items.map((it, i) => `
           <button class="mark-card" ${itemAttrs(it, ch.id, i)} data-cursor="View" type="button">
             <span class="mark-card__idx">${pad(i + 1)}/${pad(ch.items.length)}</span>
-            ${badge(it)}${frame(thumb(it.img), it.title, `style="--d:${(i % 4) * 0.08}s"`)}
+            ${badge(it)}${frame(it.img, it.title, `style="--d:${(i % 4) * 0.08}s"`)}
             <span class="mark-card__info"><strong>${esc(it.title)}</strong><span class="tag">${esc(it.tag)}</span></span>
             <span class="mark-card__text">${esc(it.text)}</span>
           </button>`).join("")}
@@ -136,7 +137,7 @@
       <div class="shout" aria-hidden="true"><div class="shout__track">${words}${words}</div></div>
       <div class="masonry">${ch.items.map((it, i) => `
         <button type="button" class="ad ${it.wide ? "ad--wide" : ""}" data-item ${it.thread ? 'class-thread="1"' : ""} data-lb="${ch.id}" data-lb-index="${i}" data-cursor="View">
-          ${badge(it)}${frame(it.img, it.title, `style="--d:${(i % 3) * 0.1}s"`)}
+          ${badge(it)}${frame(it.img, it.title, `style="--d:${(i % 3) * 0.1}s"`, it.wide)}
           <span class="ad__cap"><strong>${esc(it.title)}</strong><span class="tag">${esc(it.tag)}</span></span>
         </button>`).join("")}</div>`;
     },
@@ -174,6 +175,7 @@
       return `<div class="cases">${ch.items.map((it, i) => {
         const key = `${ch.id}-${i}`;
         processes[key] = it;
+        addGroup(`p-${key}`, it.gallery.map((g) => ({ src: g.src, title: `${it.title} — ${g.title}` })));
         const cover = Math.max(0, it.gallery.findIndex((g) => g.src === it.img));
         const facts = it.facts?.length
           ? `<details class="case__brief"><summary>Read the brief <span class="mono">${it.facts.length} notes</span></summary>
@@ -558,7 +560,7 @@
     const close = () => {
       lb.classList.remove("is-open");
       setTimeout(() => { lb.hidden = true; media.innerHTML = ""; }, 400);
-      document.body.style.overflow = "";
+      if ($(".process").hidden) document.body.style.overflow = ""; // keep the page locked under an open case study
       lastFocus?.focus?.();
     };
     const go = (d) => { i = (i + d + list.length) % list.length; show(); };
@@ -619,7 +621,7 @@
             ${s.note ? `<p>${esc(s.note)}</p>` : ""}
           </div>
           <div class="pstep__media">${s.shots.map((g) => `
-            <figure data-n="${g.n}"><img src="${esc(g.src)}" alt="${esc(g.title)}" loading="lazy" decoding="async" /></figure>`).join("")}
+            <figure data-n="${g.n}" data-lb="p-${key}" data-lb-index="${g.n}" data-cursor="Zoom"><img src="${esc(thumb(g.src))}" alt="${esc(g.title)}" loading="lazy" decoding="async" /></figure>`).join("")}
           </div>
         </section>`).join("")}
         <p class="pstep__end mono">End of ${esc(it.title)} — <button type="button" class="link process__done">back to the portfolio</button></p>`;
@@ -659,7 +661,7 @@
       if (e.target.closest(".process__done")) close();
     });
     $(".process__close").addEventListener("click", close);
-    addEventListener("keydown", (e) => { if (e.key === "Escape" && !pv.hidden) close(); });
+    addEventListener("keydown", (e) => { if (e.key === "Escape" && !pv.hidden && $(".lightbox").hidden) close(); });
     scroller.addEventListener("scroll", () => {
       const max = scroller.scrollHeight - scroller.clientHeight;
       bar.style.setProperty("--p", max > 0 ? scroller.scrollTop / max : 0);

@@ -420,7 +420,7 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; }
 @keyframes pop { from { transform: translateY(30px) scale(.9); opacity: 0; } }
 
 /* ---------- Lightbox ---------- */
-.lightbox { position: fixed; inset: 0; z-index: 120; background: rgba(6, 5, 4, .96); color: #efe8dc; display: grid; place-items: center; padding: 64px var(--gutter); opacity: 0; transition: opacity .4s; }
+.lightbox { position: fixed; inset: 0; z-index: 140; background: rgba(6, 5, 4, .96); color: #efe8dc; display: grid; place-items: center; padding: 64px var(--gutter); opacity: 0; transition: opacity .4s; }
 .lightbox[hidden] { display: none; }
 .lightbox.is-open { opacity: 1; }
 .lightbox__stage { display: flex; flex-direction: column; align-items: center; gap: 14px; max-width: 100%; }
@@ -455,7 +455,7 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; }
 .pstep__text p { font-size: clamp(17px, 1.25vw, 20px); line-height: 1.65; max-width: 46ch; }
 .pstep__lead { font-family: var(--f-serif); font-size: clamp(26px, 2.6vw, 40px) !important; line-height: 1.15 !important; margin-top: 14px; }
 .pstep__media { display: grid; gap: clamp(16px, 2.4vw, 32px); }
-.pstep__media figure { border-radius: 6px; overflow: hidden; background: rgba(21, 16, 12, .06); }
+.pstep__media figure { cursor: zoom-in; border-radius: 6px; overflow: hidden; background: rgba(21, 16, 12, .06); }
 /* scroll effect: each image rises in as it scrolls into view (images stay visible without JS) */
 .process.fx .pstep__media figure { opacity: 0; transform: translateY(70px) scale(.96); transition: opacity .9s var(--ease), transform 1.1s var(--ease); }
 .process.fx .pstep__media figure.in { opacity: 1; transform: none; }
