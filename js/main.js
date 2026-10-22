@@ -40,6 +40,8 @@
   /* ---------------------------------------------------------------------
      Templates
      --------------------------------------------------------------------- */
+  // small copies (max 800px) in thumbs/, mirroring each image's path — used wherever an image shows small
+  const thumb = (src) => window.ASSET_BASE + "thumbs/" + src.slice(window.ASSET_BASE.length);
   const frame = (src, title, extra = "") =>
     `<div class="frame" data-title="${esc(title)}" ${extra}><img src="${esc(src)}" alt="${esc(title)}" loading="lazy" decoding="async" /></div>`;
   const badge = (it) => (it.thread ? `<span class="thread-badge">The thread</span>` : "");
@@ -53,7 +55,7 @@
         ${ch.items.map((it, i) => `
           <button class="mark-card" ${itemAttrs(it, ch.id, i)} data-cursor="View" type="button">
             <span class="mark-card__idx">${pad(i + 1)}/${pad(ch.items.length)}</span>
-            ${badge(it)}${frame(it.img, it.title, `style="--d:${(i % 4) * 0.08}s"`)}
+            ${badge(it)}${frame(thumb(it.img), it.title, `style="--d:${(i % 4) * 0.08}s"`)}
             <span class="mark-card__info"><strong>${esc(it.title)}</strong><span class="tag">${esc(it.tag)}</span></span>
             <span class="mark-card__text">${esc(it.text)}</span>
           </button>`).join("")}
@@ -78,7 +80,7 @@
             <span class="tag" data-reveal>${esc(it.tag)}</span>
             <p class="feature__text" data-reveal style="--d:.1s">${esc(it.text)}</p>
             <div class="thumbs" data-reveal style="--d:.2s">
-              ${it.gallery.map((src, n) => `<button type="button" data-lb="${key}" data-lb-index="${n}" data-cursor="View" aria-label="${esc(it.title)} image ${n + 1}"><img src="${esc(src)}" alt="" loading="lazy" /></button>`).join("")}
+              ${it.gallery.map((src, n) => `<button type="button" data-lb="${key}" data-lb-index="${n}" data-cursor="View" aria-label="${esc(it.title)} image ${n + 1}"><img src="${esc(thumb(src))}" alt="" loading="lazy" /></button>`).join("")}
             </div>
           </div>
         </article>`;
@@ -96,7 +98,7 @@
             <div><span class="tag">${pad(i + 1)} — ${esc(it.tag)}</span><h3>${esc(it.title)}</h3></div>
             <p>${esc(it.text)}</p>
             <div>
-              <div class="thumbs">${it.gallery.slice(0, 6).map((src, n) => `<button type="button" data-lb="${key}" data-lb-index="${n}" data-cursor="View" aria-label="${esc(it.title)} image ${n + 1}"><img src="${esc(src)}" alt="" loading="lazy" /></button>`).join("")}</div>
+              <div class="thumbs">${it.gallery.slice(0, 6).map((src, n) => `<button type="button" data-lb="${key}" data-lb-index="${n}" data-cursor="View" aria-label="${esc(it.title)} image ${n + 1}"><img src="${esc(thumb(src))}" alt="" loading="lazy" /></button>`).join("")}</div>
               <button type="button" class="btn-line" data-lb="${key}" data-lb-index="0">See all ${it.gallery.length} touchpoints →</button>
             </div>
           </div>
@@ -108,11 +110,11 @@
       addGroup(ch.id, ch.items.map((it) => ({ src: it.img, title: it.title })));
       return `<ol class="index">${ch.items.map((it, i) => `
         <li data-item ${it.thread ? 'class-thread="1"' : ""}>
-          <button type="button" data-lb="${ch.id}" data-lb-index="${i}" data-peek="${esc(it.img)}" data-cursor="View">
+          <button type="button" data-lb="${ch.id}" data-lb-index="${i}" data-peek="${esc(thumb(it.img))}" data-cursor="View">
             <span class="index__no">${pad(i + 1)}</span>
             <span class="index__title">${esc(it.title)}${it.thread ? ` <em style="color:var(--accent);font-size:.5em">✦</em>` : ""}</span>
             <span class="tag">${esc(it.tag)}</span>
-            <span class="index__thumb"><img src="${esc(it.img)}" alt="" loading="lazy" /></span>
+            <span class="index__thumb"><img src="${esc(thumb(it.img))}" alt="" loading="lazy" /></span>
           </button>
         </li>`).join("")}</ol>`;
     },
@@ -143,7 +145,7 @@
       addGroup(ch.id, ch.items.map((it) => ({ src: it.img, title: it.title, video: it.video })));
       const clip = (it, i) => `
         <button type="button" class="clip" data-lb="${ch.id}" data-lb-index="${i}" data-cursor="Play">
-          <div class="frame in" data-title="${esc(it.title)}"><img src="${esc(it.img)}" alt="${esc(it.title)}" loading="lazy" /><span class="clip__play"></span></div>
+          <div class="frame in" data-title="${esc(it.title)}"><img src="${esc(thumb(it.img))}" alt="${esc(it.title)}" loading="lazy" /><span class="clip__play"></span></div>
           <span class="clip__cap"><span>${esc(it.title)}</span><span class="tag">${esc(it.tag)}</span></span>
         </button>`;
       const half = Math.ceil(ch.items.length / 2);
@@ -190,7 +192,7 @@
           </div>
           <div class="case__strip drag" data-cursor="Drag"><div class="drag__track">${it.gallery.map((g, n) => `
             <button type="button" class="case__shot" data-process="${key}" data-step="${n}">
-              <span class="case__img"><img src="${esc(g.src)}" alt="${esc(g.title)}" loading="lazy" decoding="async" /></span>
+              <span class="case__img"><img src="${esc(thumb(g.src))}" alt="${esc(g.title)}" loading="lazy" decoding="async" /></span>
               <span class="case__cap"><span class="mono">${pad(n + 1)}</span>${esc(g.title)}${g.note ? " ✦" : ""}</span>
             </button>`).join("")}</div></div>
         </article>`;
