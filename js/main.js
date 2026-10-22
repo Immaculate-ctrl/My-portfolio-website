@@ -251,8 +251,19 @@
     $(".foot__track").innerHTML = foot + foot + foot + foot;
     $(".year").textContent = new Date().getFullYear();
 
-    // missing-image fallback (e.g. assets not copied yet)
-    $$("img").forEach((img) => img.addEventListener("error", () => img.closest(".frame")?.classList.add("is-missing"), { once: true }));
+    // a failed image (slow or flaky connection) is retried twice before showing the placeholder;
+    // listening on document also covers images added later (viewer, case studies)
+    document.addEventListener("error", (e) => {
+      const img = e.target;
+      if (img.tagName !== "IMG" || !img.getAttribute("src")) return;
+      const tries = +(img.dataset.retry || 0);
+      if (tries < 2) {
+        img.dataset.retry = tries + 1;
+        setTimeout(() => (img.src = `${img.src.split("?")[0]}?retry=${tries + 1}`), 2000 * (tries + 1));
+      } else {
+        img.closest(".frame")?.classList.add("is-missing");
+      }
+    }, true);
   }
 
   /* ---------------------------------------------------------------------
